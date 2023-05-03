@@ -1,0 +1,40 @@
+% !TEX encoding = UTF-8
+% !TEX TS-program = pdflatex
+% !TEX root = ../tesi.tex
+
+%**************************************************************
+% Sommario
+%**************************************************************
+\cleardoublepage
+\phantomsection
+\pdfbookmark{Abstract}{Abstract}
+\begingroup
+\let\clearpage\relax
+\let\cleardoublepage\relax
+\let\cleardoublepage\relax
+
+\chapter*{Abstract}
+
+Il presente documento descrive il lavoro svolto durante il periodo di stage, della durata di circa trecento ore, dal laureando \myName \space presso l'azienda \myAzienda. \\
+    L'obiettivo principale dello stage era la ricerca e l'eventuale sviluppo di una soluzione per l'implementazione di un sistema di Single Sign-On (SSO) che permettesse, nativamente, l'autenticazione e la gestione della relativa sessione su una macchina UNIX Debian-like o RHEL-like tramite Monokee. \\
+    Il framework da utilizzare era FreeIPA, un gestore delle identità e degli accessi (Identity and Access Management, IAM) gratuito ed open-source che combina tecnologie quali Linux, LDAP, MIT Kerberos, NTP, DNS ed SSSD e consta di un'interfaccia web user-friendly e di strumenti di amministrazione tramite command-line. \\
+    L'attività si è sviluppata inizialmente in un fase di ricerca e sperimentazione con l'installazione del software FreeIPA su più macchine virtuali CentOS, RHEL e Ubuntu, messe a disposizione dall'azienda. \\
+    La seconda fase è stata dedicata alla ricerca di un metodo che consentisse di effettuare l'autenticazione con il proprio account Monokee;
+in tal senso, è stata approfondita la parte relativa a Unix PAM (Pluggable Authentication Modules) per studiare la possibilità dello sviluppo di un modulo aggiuntivo. \\
+    In seguito a tale ricerca, si è deciso di optare per il sistema di autenticazione tramite Identity Provider esterno messa a disposizione dall'applicativo di FreeIPA
+e di procedere, dunque, con la configurazione di un'applicazione Monokee OAuth2 e di un provider OpenID Connect (OIDC) che fornissero gli end-point e l'infrastruttura 
+necessaria alla comunicazione con il server di FreeIPA e la successiva implementazione degli stessi su di esso. \\
+    Verificato il corretto funzionamento di questo sistema di autenticazione da CLI (Command-Line Interface), si è proseguito cercando di implementare questo sistema anche tramite SSH fino al raggiungimento delle ore previste.
+
+%\vfill
+%
+%\selectlanguage{english}
+%\pdfbookmark{Abstract}{Abstract}
+%\chapter*{Abstract}
+%
+%\selectlanguage{italian}
+
+\endgroup			
+
+\vfill
+
