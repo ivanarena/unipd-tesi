@@ -22,9 +22,9 @@
 %**************************************************************
 \section{L'azienda}
 
-Athesys Srl è un'azienda di consulenza informatica nata a Padova nel 2010 "dalla sinergia di affermati professionisti del settore IT", specializzata in ambito
-System Integration, Database Management, Sicurezza applicativa, Governance Cloud Platform, Hyperconvergenza e
-Sviluppo Software in modalità Agile. \\
+Athesys Srl è un'azienda di consulenza informatica nata a Padova nel 2010 "dalla sinergia di affermati professionisti del settore IT", specializzata in ambito System Integration, Database Management, Sicurezza applicativa, Governance Cloud Platform, Hyperconvergenza e
+Sviluppo Software in modalità Agile.
+
 Athesys comprende la start-up Monokee, fondata nel 2017 come soluzione cloud-based per la gestione dell'identità
 e dell'accesso (IDaaS), la quale offre, come funzionalità principale, un sistema di Single Sign-On basato 
 su diversi tipi di autenticazione, sia passwordless che tramite soluzioni di Self-Sovereign Identity (SSI).
@@ -48,25 +48,31 @@ su diversi tipi di autenticazione, sia passwordless che tramite soluzioni di Sel
 
 L'idea per l'attività di stage nasce proprio dall'esigenza dell'azienda di aumentare la portata di Monokee estendendo il 
 relativo Single Sign-On anche a livello macchina, per poter, successivamente, configurare dei terminali
-che possano gestire accesso e sessioni degli utenti Monokee già da sistema. \\
+che possano gestire accesso e sessioni degli utenti Monokee già da sistema.
+
 L'obiettivo del progetto del tirocinio era, dunque, era la ricerca e l'eventuale sviluppo di una soluzione che consentisse
 di accedere a macchine UNIX Debian-like e RHEL-like tramite il proprio account Monokee in modo nativo, sfruttando l'infrastruttura
-di Single Sign-On fornita dalla start-up. \\
+di Single Sign-On fornita dalla start-up.
+
 Il framework da utilizzare era FreeIPA, un gestore delle identità e degli accessi (Identity and Access Management, IAM)
 gratuito ed open-source che combina tecnologie quali Linux, LDAP, MIT Kerberos, NTP, DNS ed SSSD e consta di un'interfaccia web
-e di strumenti di amministrazione tramite command-line. \\
+e di strumenti di amministrazione tramite command-line. 
+
 L'attività, dalla durata totale di circa trecento ore, si è sviluppata inizialmente in un fase di ricerca e sperimentazione
 con l'installazione del software FreeIPA su più macchine virtuali CentOS, RHEL e Ubuntu,
-messe a disposizione dall'azienda. \\
+messe a disposizione dall'azienda.
+
 La seconda fase è stata dedicata alla ricerca di un metodo che consentisse di effettuare l'autenticazione con il
 proprio account Monokee su tali macchine; in tal senso, è stata approfondita la parte relativa a 
-Unix PAM (Pluggable Authentication Modules) per studiare la possibilità dello sviluppo di un modulo aggiuntivo. \\
+Unix PAM (Pluggable Authentication Modules) per studiare la possibilità dello sviluppo di un modulo aggiuntivo. 
+
 In seguito a tale ricerca, ho deciso di optare per il sistema di autenticazione tramite Identity Provider esterno
 messo a disposizione dall'applicativo di FreeIPA e di procedere, dunque, con la configurazione di un'applicazione
 Monokee OAuth2 e di un provider OpenID Connect (OIDC) che fornissero gli end-point e l'infrastruttura 
-necessaria alla comunicazione con il server di FreeIPA e la successiva implementazione degli stessi su di esso. \\
+necessaria alla comunicazione con il server di FreeIPA e la successiva implementazione degli stessi su di esso. 
+
 Verificato il corretto funzionamento di questo sistema di autenticazione da \gls{cli},
-ho proseguito cercando di implementare questo sistema anche tramite SSH fino al raggiungimento delle ore previste. \\
+ho proseguito cercando di implementare questo sistema anche tramite SSH fino al raggiungimento delle ore previste.
 
 
 %**************************************************************
