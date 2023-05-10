@@ -13,4 +13,23 @@
 \section{Unix PAM}
 \label{sec:tecnologie-strumenti}
 
+La prima idea che ho avuto per integrare il Single Sign-On di Monokee via SSH sul container CentOS che ho predisposto è stata quella di creare un nuovo modulo PAM. Ciò perché, studiando i file presenti al percorso \texttt{/etc/pam.d/} ho trovato il file \texttt{sshd}, che stabilisce i moduli da utilizzare per autenticazione, autorizzazione, sessione e gestione della password. In un primo momento mi sono concentrato sulla parte di autenticazione, controllando il file di configurazione \texttt{common-auth}, incluso in \texttt{/etc/pam.d/sshd}, che rappresenta l'autenticazione predefinita di UNIX (con password memorizzata localmente). 
+
+Tuttavia, l'installazione di FreeIPA sovrascrive il parametro \texttt{UsePam yes} del file \texttt{/etc/ssh/sshd\_config} anteponendo dei parametri relativi a Kerberos, in modo da potersi autenticare con la password dell'utente FreeIPA specificato nel prefisso della macchina nel comando di SSH.
+
+La mia idea era, dunque, quella di rimuovere questi parametri e tornare all'autenticazione via PAM, sostituendo però il modulo predefinito con uno creato appositamente per l'SSO di Monokee.
+
+Il problema restava quello del riconoscimento dell'utente ma avevo già pensato a diversi modi in cui poterlo risolvere, così ho deciso di proseguire e sperimentare con lo sviluppo di un modulo PAM di test, per verificare la fattibilità della mia intuizione.
+
+\textbf{INSERIRE MODULO}
+
+
 \section{FreeIPA IdP}
+
+Dato che la soluzione con il modulo PAM si è rivelata essere più impegnativa del previsto, ho deciso di provare a configurare l'SSO con Monokee da FreeIPA. 
+
+Navigando nell'interfaccia web del software, infatti, ho notato che nella sezione \textit{Authentication} > \textit{Identity Provider Servers} era possibile definire un Identity Provider che utilizzasse OAuth 2.0 come protocollo di autenticazione.
+
+A questo punto, con l'aiuto del team, ed in particolare del CTO di \myAzienda, mi sono spostato sull'infrastruttura di testing di Monokee per configurare un'applicazione OAuth2 da poter utilizzare come Identity Provider per FreeIPA.
+
+All'interno dell'ambiente di test, tramite l'interfaccia web, 
