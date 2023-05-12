@@ -9,11 +9,21 @@
 
 \intro{In questo capitolo viene illustrato il processo di implementazione della soluzione trovata e la stesura della documentazione relativa.}
 
-\section{Configurazione FreeIPA}
 
 \section{Configurazione Monokee}
-\section{Testing}
+All'interno dell'ambiente di test di Monokee, tramite l'interfaccia web, ho creato una nuova applicazione OAuth2 ed un nuovo OpenID Connect provider, che fornisse gli end-point per l'autenticazione via OICD.
 
+
+\section{Configurazione FreeIPA}
+Da FreeIPA, ho proceduto a configurare un nuovo Identity Provider server, tramite la sezione della GUI di cui sopra, inserendo tutte i metadati richiesti, facendo riferimento all'applicazione OAuth2 creata su Monokee e agli end-point forniti dall'OpenID provider configurato precedentemente.
+
+Successivamente, ho creato un utente FreeIPA che utilizzasse come unico metodo di autenticazione quella tramite Identity Provider esterno (\emph{External IdP}), scegliendo Monokee come IdP e come identificatore il mio indirizzo e-mail istituzionale, già associato al mio account Monokee, per poter eseguire l'accesso via SSO con le mie credenziali.  
+\section{Testing}
+Configurata correttamente l'infrastruttura di autenticazione sia su Monokee che su FreeIPA, ho proceduto a testarla seguendo le indicazioni della documentazione relativa.
+
+\section{Troubleshooting}
+
+\section{Sviluppi futuri}
 \section{Documentazione}
 
 L'azienda ha richiesto la redazione di una guida che illustrare il processo di configurazione del server FreeIPA e dei sistemi di Monokee per l'integrazione del Single Sign-On sulle macchine UNIX, per fornire una base documentativa per facilitare le future progressioni e sperimentazioni relative. Ho steso tale documentazione in formato Markdown, versionando il codice sul repository GitHub aziendale fornito da \myAzienda.
