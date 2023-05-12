@@ -24,6 +24,16 @@ Configurata correttamente l'infrastruttura di autenticazione sia su Monokee che 
 \section{Troubleshooting}
 
 \section{Sviluppi futuri}
+A partire dai risultati che ho ottenuto durante l'attività di stage, gli sviluppi futuri possibili sono molteplici.
+
+Innanzitutto, comincerei con il risolvere il problema legati all'accesso alle macchine con il server di FreeIPA installato tramite SSH su un utente di FreeIPA, e, dunque, per mezzo del Single Sign-On di Monokee. L'SSO, difatti, viene bypassato e viene richiesta la password dell'utente, la quale, di fatto, non esiste perché non è utilizzata da FreeIPA sugli utenti da autenticare con Monokee. 
+
+Dunque, andrei a verificare le impostazioni attive nei file di configurazione di SSH, come \texttt{/etc/ssh/sshd\_config}.
+\\ \\
+Risolto questo problema e avendo, quindi, una macchina a cui è possibile accedere tramite SSH direttamente con un utente Monokee, il prossimo passo potrebbe essere quello di predisporre delle macchine server con le risorse dell'azienda e fornirne l'accesso 
+direttamente da Monokee, utilizzando un servizio come Apache Guacamole.
+
+In questo modo, un utente Monokee privilegiato potrebbe accedere a delle macchine server gestire accessi, privilegi ed altro, oppure, nel caso di un utente subordinato, accedere a delle macchine client, gestite da quella server.
 \section{Documentazione}
 
 L'azienda ha richiesto la redazione di una guida che illustrare il processo di configurazione del server FreeIPA e dei sistemi di Monokee per l'integrazione del Single Sign-On sulle macchine UNIX, per fornire una base documentativa per facilitare le future progressioni e sperimentazioni relative. Ho steso tale documentazione in formato Markdown, versionando il codice sul repository GitHub aziendale fornito da \myAzienda.

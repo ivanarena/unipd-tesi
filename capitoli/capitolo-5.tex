@@ -7,10 +7,10 @@
 \label{cap:ricerca-sperimentazione}
 %**************************************************************
 
-\intro{In questo capitolo viene descritto il processo di ricerca e sperimentazione di una soluzione efficace per l'implementazione del SSO nativo}\\
+\intro{In questo capitolo viene descritto il processo di ricerca e sperimentazione di una soluzione efficace per l'implementazione dell'SSO nativo}\\
 
 %**************************************************************
-\section{Unix PAM}
+\section{Linux PAM}
 \label{sec:tecnologie-strumenti}
 
 La prima idea che ho avuto per integrare il Single Sign-On di Monokee via SSH sul container CentOS che ho predisposto è stata quella di creare un nuovo modulo PAM. Ciò perché, studiando i file presenti al percorso \texttt{/etc/pam.d/} ho trovato il file \texttt{sshd}, che stabilisce i moduli da utilizzare per autenticazione, autorizzazione, sessione e gestione della password. In un primo momento mi sono concentrato sulla parte di autenticazione, controllando il file di configurazione \texttt{common-auth}, incluso in \texttt{/etc/pam.d/sshd}, che rappresenta l'autenticazione predefinita di UNIX (con password memorizzata localmente). 
@@ -21,8 +21,10 @@ La mia idea era, dunque, quella di rimuovere questi parametri e tornare all'aute
 
 Il problema restava quello del riconoscimento dell'utente ma avevo già pensato a diversi modi in cui poterlo risolvere, così ho deciso di proseguire e sperimentare con lo sviluppo di un modulo PAM di test, per verificare la fattibilità della mia intuizione.
 
-Dapprima, ho deciso di sviluppare una semplice applicazione PAM-aware,ovvero compatibile con Linux PAM, utilizzando il linguaggio C e facendo riferimento alla documentazione trovata.   
+\subsection{Sviluppo del modulo PAM}
+Dapprima, ho deciso di sviluppare una semplice applicazione PAM-aware,ovvero compatibile con Linux PAM, utilizzando il linguaggio C e facendo riferimento alla documentazione trovata.  
 
+Successivamente, ho sviluppato il modulo PAM di prova e l'ho impostato come metodo di autenticazione per l'SSH con il seguente procedimento: prima di tutto, ho modificato il file di configurazione \texttt{/etc/ssh/sshd\_conf} disattivando il parametro \texttt{Set PasswordAuthentication} ed attivando il parametro \texttt{Set UsePAM}; in seguito, ho modificato il file di configurazione dei moduli PAM da utilizzare per il servizio SSH, \texttt{/etc/pam.d/sshd}, commentando tutte le righe che facevano riferimento all'autenticazione ed inserendo una riga con il nome del modulo di prova che ho sviluppato, etichettato come \texttt{auth  sufficient}, indicando che era sufficiente ottenere esito positivo da tale modulo per autenticarsi con successo. 
 
 \section{FreeIPA IdP}
 
@@ -30,5 +32,5 @@ Dato che la soluzione con il modulo PAM si è rivelata essere più impegnativa d
 
 Navigando nell'interfaccia web del software, infatti, ho notato che nella sezione \textit{Authentication} > \textit{Identity Provider Servers} era possibile definire un Identity Provider che utilizzasse OAuth 2.0 come protocollo di autenticazione.
 
-A questo punto, con l'aiuto del team, ed in particolare del CTO di \myAzienda, mi sono spostato sull'infrastruttura di testing di Monokee per configurare un'applicazione OAuth2 da poter utilizzare come Identity Provider per FreeIPA.
+A questo punto, con l'aiuto del team, e, in particolare, del CTO di \myAzienda, mi sono spostato sull'infrastruttura di testing di Monokee per configurare un'applicazione OAuth2 da poter utilizzare come Identity Provider per FreeIPA.
 
