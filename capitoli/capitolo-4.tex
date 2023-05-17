@@ -3,13 +3,11 @@
 % !TEX root = ../tesi.tex
 
 %**************************************************************
-\chapter{Configurazione dei sistemi}
-\label{cap:configurazione-sistemi}
+\chapter{Configurazione dello stato iniziale}
+\label{cap:configurazione-stato-iniziale}
 %**************************************************************
 
-\intro{In questo capitolo vengono descritti i procedimenti attuati per configurare i sistemi utilizzati.}\\
-
-\section{Configurazione ambienti virtuali}
+\intro{In questo capitolo vengono descritti i procedimenti attuati per configurare lo stato iniziale dei sistemi e utilizzati.}\\
 
 Avendo familiarità con Ubuntu ho, inizialmente, verificato che il pacchetto del server di FreeIPA fosse presente: ho presto appreso che esso era discontinuo sulle ultime versioni del sistema operativo.
 
@@ -28,10 +26,8 @@ Tramite il comando \texttt{lxc-create -t download -n ipa-server}, ho creato un n
 
 Dopo la creazione della macchina ho lanciato i comandi \texttt{lxc-start ipa-server} e \texttt{lxc-console ipa-server}, rispettivamente per avviare il container e per accedere al relativo terminale.
 
-\section{Configurazione FreeIPA}
 
 Dopo aver configurato il container per il server ed aver eseguito l'aggiornamento dei pacchetti con il comando \texttt{yum update}, sono passato all'installazione del server di FreeIPA, disponibile su quella release con il pacchetto \emph{freeipa-server}.
 
-\section{Configurazione Monokee}
 
 Al mio arrivo negli uffici di \myAzienda, l'azienda aveva già configurato per me un account sulla loro piattaforma di testing, \emph{test.monokee.com}, utilizzando come e-mail il mio indirizzo istituzionale e garantendomi l'accesso a tutte le risorse della piattaforma, oltre che alla documentazione aziendale.

@@ -17,7 +17,7 @@ Il lavoro è stato svolto in parte a tempo parziale ed in parte a tempo pieno, d
 Il piano di lavoro dello stage individuava tre periodi principali:
 
 \begin{itemize}
-    \item Un periodo di formazione sulle tecnologie utilizzate, della durata totale prevista di 80 ore e suddiviso in tre macro-categorie relative rispettivamente all'SSO, all'SSI e a FreeIPA/Linux PAM;
+    \item Un periodo di formazione sulle tecnologie utilizzate, della durata totale prevista di 80 ore e suddiviso in tre macro-categorie relative rispettivamente all'SSO, all'SSI e a FreeIPA, Linux PAM;
     \item Un periodo riservato alle integrazioni software, della durata totale prevista di 200 ore;
     \item Un periodo di stesura di documentazione relativa allo stage e alla tesi, della durata totale prevista di 20 ore.
 \end{itemize}
@@ -34,7 +34,7 @@ FreeIPA è progettato per semplificare la gestione dell'identità e dell'accesso
 Per l'autenticazione degli utenti, FreeIPA utilizza il protocollo Kerberos: gli utenti possono accedere alle risorse della rete utilizzando le loro credenziali Kerberos, senza dover inserire le password ogni volta.
 Per archiviare e gestire le informazioni sugli utenti, i gruppi e le risorse della rete, invece, utilizza il server di directory open-source 389 Directory Server, il quale offre funzionalità avanzate di ricerca, replica e sincronizzazione.
 
-FreeIPA supporta l'autenticazione SSO tramite il protocollo SAML (Security Assertion Markup Language), ciò significa che gli utenti possono accedere a più applicazioni utilizzando le stesse credenziali di accesso.
+FreeIPA supporta l'autenticazione SSO tramite i protocolli SAML (Security Assertion Markup Language) e OICD: ciò significa che gli utenti possono accedere a più applicazioni utilizzando le stesse credenziali di accesso.
 
 \subsection{LXC}
 LXC è l'acronimo di Linux Containers, un sistema di virtualizzazione basato sul kernel Linux che consente di eseguire più sistemi operativi isolati su una singola macchina host. A differenza della virtualizzazione completa, in cui ogni sistema operativo guest ha accesso all'intero hardware dell'host, 
@@ -46,6 +46,7 @@ LXC fornisce un'interfaccia di riga di comando per la gestione dei container, ch
 \\
 Durante l'attività di stage ho utilizzato principalmente container basati su immagini CentOS (Community Enterprise Operating System), una distribuzione Linux basata su Red Hat Enterprise Linux (RHEL) particolarmente adatta all'uso in ambiente server, che offre una vasta gamma di funzionalità e strumenti per gestire un'infrastruttura IT. 
 
+% TODO: aggiungere cit a tempo reale
 In particolare, ho utilizzato l'ultima versione (9) di CentOS Stream, che, a differenza della versione standard, riceve gli aggiornamenti in tempo reale durante lo sviluppo di RHEL, consentendo agli utenti di testare e fornire feedback sulle nuove funzionalità e correzioni di bug in anteprima.
 
 Un'altra differenza tra CentOS e CentOS Stream è la durata del supporto: CentOS ha, storicamente, fornito un supporto a lungo termine per le versioni rilasciate; la versione Stream, al contrario, è progettata per essere una piattaforma di sviluppo in continuo aggiornamento e non offre, dunque, il supporto a lungo termine.
@@ -56,3 +57,17 @@ Secure Shell (SSH) è un protocollo di rete crittografato utilizzato per la gest
 L'autenticazione avviene attraverso l'uso di chiavi pubbliche e private: in questo metodo, un'entità che desidera accedere a un sistema remoto genera una coppia di chiavi, una pubblica e una privata; la chiave pubblica viene fornita al sistema remoto, mentre la chiave privata viene conservata dall'entità; quando l'entità si connette al sistema remoto, la chiave privata viene utilizzata per autenticare l'entità.
 
 Inoltre, SSH utilizza la crittografia per proteggere i dati trasferiti tra i dispositivi. In particolare, il protocollo utilizza la crittografia a chiave simmetrica per proteggere i dati durante la trasmissione, e la crittografia a chiave pubblica per autenticare le parti coinvolte.
+
+\section{Proxmox}
+
+Proxmox è una piattaforma di virtualizzazione open source che combina la virtualizzazione basata su container (LXC) e la virtualizzazione basata su macchine virtuali (KVM) in un'unica soluzione. È progettato per consentire la creazione, la gestione e l'esecuzione di macchine virtuali e container su un unico sistema, fornendo un ambiente flessibile e scalabile per le infrastrutture IT.
+
+Una delle caratteristiche principali di Proxmox è la sua interfaccia di gestione Web, chiamata Proxmox Virtual Environment (PVE), che fornisce un'interfaccia grafica intuitiva per la gestione delle risorse di virtualizzazione. PVE consente agli amministratori di creare, configurare e monitorare le macchine virtuali e i container, nonché di gestire l'archiviazione, la rete e altre risorse di sistema.
+
+Oltre a supportare la virtualizzazione basata su container (LXC), la piattaforma supporta anche la virtualizzazione completa (KVM), che consente di eseguire macchine virtuali con sistemi operativi completi all'interno di un ambiente virtualizzato, offrendo, così, un'isolamento completo tra le macchine virtuali e fornisce un'ampia compatibilità con sistemi operativi diversi, consentendo di eseguire Windows, Linux e altri sistemi operativi all'interno di macchine virtuali Proxmox.
+
+Proxmox offre, inoltre, funzionalità avanzate come la migrazione live delle macchine virtuali, che consente di spostare una macchina virtuale in esecuzione da un nodo all'altro senza interruzioni di servizio. Ciò offre flessibilità nella gestione delle risorse e consente di bilanciare il carico di lavoro tra i nodi di virtualizzazione.
+
+La piattaforma è anche integrata con la gestione dell'archiviazione e della rete, consentendo la creazione e la gestione di storage e reti virtuali all'interno dell'ambiente di virtualizzazione: questo semplifica la gestione delle risorse e offre una maggiore flessibilità nella configurazione dell'infrastruttura di rete e storage.
+
+% TODO: fixare pagine biacnhe
