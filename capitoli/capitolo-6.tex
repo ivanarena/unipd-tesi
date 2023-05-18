@@ -11,19 +11,36 @@
 
 
 \section{Configurazione Monokee}
-All'interno dell'ambiente di test di Monokee, tramite l'interfaccia web, ho creato una nuova applicazione OAuth2 ed un nuovo OpenID Connect provider, che fornisse gli end-point per l'autenticazione via OICD.
+All'interno dell'ambiente di test di Monokee, tramite l'interfaccia web, ho creato una nuova applicazione OAuth2 ed un nuovo OpenID Connect provider, che fornisse gli end-point per l'autenticazione via OIDC.
 
 
 \section{Configurazione FreeIPA}
 Da FreeIPA, ho proceduto a configurare un nuovo Identity Provider server, tramite la sezione della GUI di cui sopra, inserendo tutte i metadati richiesti, facendo riferimento all'applicazione OAuth2 creata su Monokee e agli end-point forniti dall'OpenID provider configurato precedentemente.
 
 Successivamente, ho creato un utente FreeIPA che utilizzasse come unico metodo di autenticazione quella tramite Identity Provider esterno (\emph{External IdP}), scegliendo Monokee come IdP e come identificatore il mio indirizzo e-mail istituzionale, già associato al mio account Monokee, per poter eseguire l'accesso via SSO con le mie credenziali.  
-\section{Testing}
-Configurata correttamente l'infrastruttura di autenticazione sia su Monokee che su FreeIPA, ho proceduto a testarla seguendo le indicazioni della documentazione relativa.
 
-\section{Troubleshooting}
+Configurata correttamente l'infrastruttura di autenticazione sia su Monokee che su FreeIPA, ho proceduto a verificarne il funzionamento seguendo le indicazioni della documentazione relativa: dapprima, ho generato un file per l'autenticazione tramite canale FAST con il comando \texttt{kinit -n -c ./fast.ccache}; successivamente, ho richiesto l'autenticazione anonima tramite PKINIT con il comando \texttt{kinit -T ./fast.ccache monokee1}; a questo punto, viene eseguito il flusso di OIDC e viene mostrato un URL al quale autenticarsi tramite SSO di Monokee; ad autenticazione eseguita, basta tornare sul terminale e premere invio per completare l'autenticazione.
 
-Mettere la roba dell'autenticazione con google ecc
+Per verificare la corretta autenticazione ho poi lanciato il comando \texttt{klist}, che mostra i ticket Kerberos richiesti, e controllato che l'utente attuale fosse lo stesso con cui volevo autenticarmi e che il ticket fosse valido.  
+
+\begin{figure}[!h] 
+    \centering 
+    \includegraphics[width=\columnwidth]{ipa-cli} 
+    \caption{Autenticazione con Monokee SSO tramite FreeIPA da CLI}
+    \label{fig:ipa-cli}
+\end{figure}
+
+% Mettere la roba dell'autenticazione con google ecc
+
+\section{Problematiche riscontrate}
+
+Durante l'integrazione dell'SSO tramite FreeIPA, nonché già dal processo di configurazione dello stesso, ho riscontrato numerose problematiche.
+
+In primis, a rendere il processo più faticoso del previsto, è stata la mancanza di una  documentazione esaustiva e di informazioni utili in rete in merito alla risoluzione degli errori, dovuta probabilmente alla userbase di FreeIPA, che, benché tale servizio sia lo standard in ambito IAM, è alquanto ridotta.
+
+In secondo luogo, ho riscontrato errori di inconsistenza piuttosto limitanti tra i registri di FreeIPA e quelli di sistema, oltre che difetti di compatibilità della piattaforma con alcune versioni di CentOS e RHEL.
+
+Infine, l'autenticazione di FreeIPA tramite MOnokee SSO non riesce a sovrascrivere quella di UNIX quando si vuole raggiungere una macchina tramite SSH su un utente Monokee già configurato sul server. 
 
 \section{Sviluppi futuri}
 A partire dai risultati che ho ottenuto durante l'attività di stage, gli sviluppi futuri possibili sono molteplici.

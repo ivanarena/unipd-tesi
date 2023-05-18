@@ -13,7 +13,7 @@ Avendo familiarità con Ubuntu ho, inizialmente, verificato che il pacchetto del
 
 Così, ho deciso di optare per CentOS Stream 9, ultima versione disponibile, per l'ottima compatibilità con FreeIPA e la migliore usabilità in ambienti server.
 
-A questo punto, con l'aiuto del team di \myAzienda, ho configurato LXC sulla mia macchina Ubuntu 22.04 LTS. 
+A questo punto, con l'aiuto del team di \myAzienda, ho configurato LXC sulla mia macchina Ubuntu 22.04 LTS.
 
 Tramite il comando \texttt{lxc-create -t download -n ipa-server}, ho creato un nuovo container con il nome di \emph{ipa-server} indicando di voler scaricare il template dalla lista di quelli disponibili, dalla quale ho scelto l'immagine di CentOS Stream 9 (\autoref{fig:lxc-template}).
 
@@ -31,3 +31,5 @@ Dopo aver configurato il container per il server ed aver eseguito l'aggiornament
 
 
 Al mio arrivo negli uffici di \myAzienda, l'azienda aveva già configurato per me un account sulla loro piattaforma di testing, \emph{test.monokee.com}, utilizzando come e-mail il mio indirizzo istituzionale e garantendomi l'accesso a tutte le risorse della piattaforma, oltre che alla documentazione aziendale.
+
+Inoltre, avevano predisposto sull'intranet aziendale, tramite Proxmox, delle macchine virtuali CentOS e RHEL pronte all'uso.
