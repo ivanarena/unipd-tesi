@@ -27,12 +27,12 @@ Il piano di lavoro dello stage individuava tre periodi principali:
 
 \section{Tecnologie utilizzate}
 \subsection{FreeIPA}
-FreeIPA è una soluzione open-source gratuita (GNU General Public License) di gestione dell'identità e dell'accesso per ambienti di rete basati su Linux/UNIX, originariamente sviluppato dalla comunità Fedora ed ora supportato da diverse organizzazioni, tra cui Red Hat e la FreeIPA Foundation. Consiste in un insieme di servizi integrati, che consentono di centralizzare l'autenticazione, l'autorizzazione e la gestione degli utenti e delle risorse in un'organizzazione.
+FreeIPA\footcite{site:freeipa-website} è una soluzione open-source gratuita (GNU General Public License) di gestione dell'identità e dell'accesso per ambienti di rete basati su Linux/UNIX, originariamente sviluppato dalla comunità Fedora ed ora supportato da diverse organizzazioni, tra cui Red Hat e la FreeIPA Foundation. Consiste in un insieme di servizi integrati, che consentono di centralizzare l'autenticazione, l'autorizzazione e la gestione degli utenti e delle risorse in un'organizzazione.
 
 
 \begin{figure}[!h] 
     \centering 
-    \includegraphics[width=\columnwidth]{logo-freeipa} 
+    \includegraphics[width=0.6\columnwidth]{logo-freeipa} 
     \caption{Logo di FreeIPA}
     \label{fig:logo-freeipa}
 \end{figure}
@@ -53,10 +53,9 @@ La condivisione del kernel fa sì che i container siano molto leggeri e veloci e
 
 \acrshort{lxc} fornisce un'interfaccia di riga di comando per la gestione dei container, che consente di creare, avviare, fermare, eliminare e gestire i container in modo semplice ed efficiente. Inoltre, supporta la creazione di immagini di container, che possono essere utilizzate per creare nuovi container in modo rapido e semplice.
 \\
-Durante l'attività di stage ho utilizzato principalmente container basati su immagini \acrfull{centos}, una distribuzione Linux basata su \acrfull{rhel} particolarmente adatta all'uso in ambiente server, che offre una vasta gamma di funzionalità e strumenti per gestire un'infrastruttura IT. 
+Durante l'attività di stage ho utilizzato principalmente container basati su immagini \acrshort{centos}, una distribuzione Linux basata su \acrshort{rhel} particolarmente adatta all'uso in ambiente server, che offre una vasta gamma di funzionalità e strumenti per gestire un'infrastruttura IT. 
 
-% TODO: aggiungere cit a tempo reale
-In particolare, ho utilizzato l'ultima versione di \acrshort{centos} Stream (versione 9), che, a differenza della versione standard, riceve gli aggiornamenti in tempo reale durante lo sviluppo di \acrshort{ssi}, consentendo agli utenti di testare e fornire feedback sulle nuove funzionalità e correzioni di bug in anteprima.
+In particolare, ho utilizzato l'ultima versione di \acrshort{centos} Stream (versione 9), che, a differenza della versione standard, riceve gli aggiornamenti in tempo reale durante lo sviluppo di \acrshort{ssi}, consentendo agli utenti di testare e fornire feedback sulle nuove funzionalità e correzioni di bug in anteprima\footcite{site:centos-stream}.
 
 Un'altra differenza tra \acrshort{centos} e \acrshort{centos} Stream è la durata del supporto: \acrshort{centos} ha, storicamente, fornito un supporto a lungo termine per le versioni rilasciate; la versione Stream, al contrario, è progettata per essere una piattaforma di sviluppo in continuo aggiornamento e non offre, dunque, il supporto a lungo termine.
 

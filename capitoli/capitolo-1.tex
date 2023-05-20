@@ -16,16 +16,19 @@
 % \noindent Esempio di citazione in linea \\
 % \cite{site:agile-manifesto}. \\
 
+% \noindent Esempio di citazione in linea \\
+% \cite{site:what-is-oauth}. \\
+
 % \noindent Esempio di citazione nel pie' di pagina \\
 % citazione\footcite{womak:lean-thinking} \\
 
 %**************************************************************
 \section{L'azienda}
 
-Athesys Srl è un'azienda di consulenza informatica nata a Padova nel 2010 "dalla sinergia di affermati professionisti del settore IT", specializzata in ambito System Integration, Database Management, Sicurezza applicativa, Governance Cloud Platform, Hyperconvergenza e
+Athesys Srl è un'azienda di consulenza informatica nata a Padova nel 2010 "dalla sinergia di affermati professionisti del settore IT"\footcite{site:athesys}, specializzata in ambito System Integration, Database Management, Sicurezza applicativa, Governance Cloud Platform, Hyperconvergenza e
 Sviluppo Software in modalità Agile.
 
-Athesys comprende la spin-off Monokee, fondata nel 2017 come soluzione cloud-based per la gestione dell'identità
+Athesys comprende la spin-off Monokee\footcite{site:monokee}, fondata nel 2017 come soluzione cloud-based per la gestione dell'identità
 e dell'accesso (\acrfull{idaas}), la quale offre, come funzionalità principale, un sistema di \acrfull{sso} basato 
 su diversi tipi di autenticazione, sia passwordless che tramite soluzioni di \acrfull{ssi}.
 
@@ -52,15 +55,15 @@ che possano gestire accesso e sessioni degli utenti Monokee già da sistema.
 
 L'obiettivo del progetto del tirocinio era, dunque, era la ricerca e l'eventuale sviluppo di una soluzione che consentisse
 di accedere a macchine UNIX Debian e \acrfull{rhel} tramite il proprio account Monokee in modo nativo, sfruttando l'infrastruttura
-di Single Sign-On fornita dalla spin-off.
+di \acrshort{sso} fornita dalla spin-off.
 
-Il framework da utilizzare era FreeIPA, un gestore delle identità e degli accessi (\acrshort{IAM})
+Il framework da utilizzare era FreeIPA, un gestore delle identità e degli accessi (\acrshort{iam})
 gratuito ed open-source che combina tecnologie quali Linux, \acrfull{LDAP}, \acrfull{mit} Kerberos, \acrfull{ntp}, \acrfull{dns} ed \acrfull{sssd} e consta di un'interfaccia web
-e di strumenti di amministrazione tramite command-line. 
+e di strumenti di amministrazione tramite command-line\footcite{site:freeipa-website}. 
 
 L'attività, dalla durata totale di circa trecento ore, si è sviluppata inizialmente in un fase di ricerca e sperimentazione
-con l'installazione del software FreeIPA su più macchine virtuali CentOS, RHEL e Ubuntu,
-messe a disposizione dall'azienda.
+con l'installazione del software FreeIPA su più macchine virtuali \acrfull{centos}, \acrfull{rhel} e Ubuntu,
+messe a disposizione dall'azienda tramite Proxmox.
 
 La seconda fase è stata dedicata alla ricerca di un metodo che consentisse di effettuare l'autenticazione con il
 proprio account Monokee su tali macchine; in tal senso, è stata approfondita la parte relativa a 
@@ -69,7 +72,7 @@ Linux \acrshort{pam} per studiare la possibilità dello sviluppo di un modulo ag
 In seguito a tale ricerca, ho deciso di optare per il sistema di autenticazione tramite Identity Provider esterno
 messo a disposizione dall'applicativo di FreeIPA e di procedere, dunque, con la configurazione di un'applicazione
 Monokee \acrfull{oauth2} e di un provider \acr{\acrfull{oidc} che fornissero gli end-point e l'infrastruttura 
-necessaria alla comunicazione con il server di FreeIPA e la successiva implementazione degli stessi su di esso. 
+necessari alla comunicazione con il server di FreeIPA e la successiva implementazione degli stessi su di esso. 
 
 Verificato il corretto funzionamento di questo sistema di autenticazione da \arcfull{cli}, ho proseguito cercando di implementare questo sistema anche tramite \acrfull{ssh} fino al raggiungimento delle ore previste, tuttavia, senza successo.
 
