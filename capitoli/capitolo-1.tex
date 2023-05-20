@@ -26,7 +26,7 @@ Athesys Srl è un'azienda di consulenza informatica nata a Padova nel 2010 "dall
 Sviluppo Software in modalità Agile.
 
 Athesys comprende la spin-off Monokee, fondata nel 2017 come soluzione cloud-based per la gestione dell'identità
-e dell'accesso (IDaaS), la quale offre, come funzionalità principale, un sistema di \acrfull{sso} basato 
+e dell'accesso (\acrfull{idaas}), la quale offre, come funzionalità principale, un sistema di \acrfull{sso} basato 
 su diversi tipi di autenticazione, sia passwordless che tramite soluzioni di \acrfull{ssi}.
 
 \vspace{20pt}
@@ -54,8 +54,8 @@ L'obiettivo del progetto del tirocinio era, dunque, era la ricerca e l'eventuale
 di accedere a macchine UNIX Debian e \acrfull{rhel} tramite il proprio account Monokee in modo nativo, sfruttando l'infrastruttura
 di Single Sign-On fornita dalla spin-off.
 
-Il framework da utilizzare era FreeIPA, un gestore delle identità e degli accessi (Identity and Access Management, IAM)
-gratuito ed open-source che combina tecnologie quali Linux, LDAP, MIT Kerberos, NTP, DNS ed SSSD e consta di un'interfaccia web
+Il framework da utilizzare era FreeIPA, un gestore delle identità e degli accessi (\acrshort{IAM})
+gratuito ed open-source che combina tecnologie quali Linux, \acrfull{LDAP}, \acrfull{mit} Kerberos, \acrfull{ntp}, \acrfull{dns} ed \acrfull{sssd} e consta di un'interfaccia web
 e di strumenti di amministrazione tramite command-line. 
 
 L'attività, dalla durata totale di circa trecento ore, si è sviluppata inizialmente in un fase di ricerca e sperimentazione
@@ -64,14 +64,14 @@ messe a disposizione dall'azienda.
 
 La seconda fase è stata dedicata alla ricerca di un metodo che consentisse di effettuare l'autenticazione con il
 proprio account Monokee su tali macchine; in tal senso, è stata approfondita la parte relativa a 
-Linux PAM (Pluggable Authentication Modules) per studiare la possibilità dello sviluppo di un modulo aggiuntivo. 
+Linux \acrshort{pam} per studiare la possibilità dello sviluppo di un modulo aggiuntivo. 
 
 In seguito a tale ricerca, ho deciso di optare per il sistema di autenticazione tramite Identity Provider esterno
 messo a disposizione dall'applicativo di FreeIPA e di procedere, dunque, con la configurazione di un'applicazione
-Monokee OAuth2 e di un provider OpenID Connect (OIDC) che fornissero gli end-point e l'infrastruttura 
+Monokee \acrfull{oauth2} e di un provider \acr{\acrfull{oidc} che fornissero gli end-point e l'infrastruttura 
 necessaria alla comunicazione con il server di FreeIPA e la successiva implementazione degli stessi su di esso. 
 
-Verificato il corretto funzionamento di questo sistema di autenticazione da \arcshort{cli}, ho proseguito cercando di implementare questo sistema anche tramite SSH fino al raggiungimento delle ore previste, tuttavia, senza successo.
+Verificato il corretto funzionamento di questo sistema di autenticazione da \arcfull{cli}, ho proseguito cercando di implementare questo sistema anche tramite \acrfull{ssh} fino al raggiungimento delle ore previste, tuttavia, senza successo.
 
 
 
