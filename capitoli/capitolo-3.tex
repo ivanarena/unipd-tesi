@@ -50,7 +50,7 @@ L'\acrshort{sso} offre, dunque, numerosi vantaggi, tra cui una maggiore comodit�
 
 Il protocollo \acrshort{saml} funziona utilizzando il concetto di token di sicurezza chiamato "asserzione". Un'asserzione \acrshort{saml} contiene informazioni sull'identità dell'utente autenticato, come il nome utente, l'ID utente, i ruoli e altre attribuzioni. Queste asserzioni sono scambiate tra il fornitore di identità e il fornitore di servizi utilizzando messaggi XML.
 
-Il flusso di lavoro tipico di \acrshort{saml} coinvolge tre componenti principali: l'utente, il fornitore di identità e il fornitore di servizi. L'utente cerca di accedere a un servizio protetto dal fornitore di servizi. Il fornitore di servizi invia una richiesta di autenticazione al fornitore di identità. Il fornitore di identità autentica l'utente e genera un'asserzione \acrshort{saml} contenente le informazioni sull'identità. Questa asserzione viene quindi inviata al fornitore di servizi, che verifica l'asserzione e consente l'accesso al servizio richiesto \autoref{fig:saml-flow}.
+Il flusso di lavoro tipico di \acrshort{saml} coinvolge tre componenti principali: l'utente, il fornitore di identità e il fornitore di servizi. L'utente cerca di accedere a un servizio protetto dal fornitore di servizi. Il fornitore di servizi invia una richiesta di autenticazione al fornitore di identità. Il fornitore di identità autentica l'utente e genera un'asserzione \acrshort{saml} contenente le informazioni sull'identità. Questa asserzione viene quindi inviata al fornitore di servizi, che verifica l'asserzione e consente l'accesso al servizio richiesto (\autoref{fig:saml-flow}).
 
 \acrshort{saml} è ampiamente utilizzato per consentire l'autenticazione e l'autorizzazione federate in scenari come il Single Sign-On (\acrshort{sso}), ma è anche utilizzato in scenari di federazione di identità, in cui più organizzazioni collaborano per consentire l'accesso sicuro a risorse condivise tra i partecipanti.
 
@@ -58,12 +58,13 @@ Il flusso di lavoro tipico di \acrshort{saml} coinvolge tre componenti principal
     \centering 
     \includegraphics[width=\columnwidth]{saml-flow} 
     \caption{Diagramma di flusso dell'autenticazione con \acrshort{saml}\footcite{site:saml-flow}}
+    \label{fig:saml-flow}
 \end{figure}
 
 \subsubsection{\acrlong{oauth2}}
 \acrshort{oauth2}\footcite{site:what-is-oauth} è un protocollo di autorizzazione che consente a un'applicazione di accedere alle risorse di un utente senza richiedere le credenziali dell'utente - e, di conseguenza, senza memorizzarle - nato per assicurare l'accesso sicuro e controllato ai dati di un utente da parte di applicazioni di terze parti.
 
-Funziona attraverso una serie di flussi di autorizzazione, in cui l'utente concede l'autorizzazione all'applicazione per accedere alle sue risorse. L'applicazione, a sua volta, ottiene un token di accesso che può essere utilizzato per accedere alle risorse dell'utente \autoref{fig:oauth-flow-img}.
+Funziona attraverso una serie di flussi di autorizzazione, in cui l'utente concede l'autorizzazione all'applicazione per accedere alle sue risorse. L'applicazione, a sua volta, ottiene un token di accesso che può essere utilizzato per accedere alle risorse dell'utente (\autoref{fig:oauth-flow-img}).
 
 Il protocollo \acrshort{oauth2} è utilizzato da molte grandi piattaforme online come Google, Facebook e Twitter ed è diventato, di fatto, uno standard nei servizi cloud, nei social network, nei servizi di pagamento online e in molti altri contesti.
 
@@ -71,11 +72,12 @@ Il protocollo \acrshort{oauth2} è utilizzato da molte grandi piattaforme online
     \centering 
     \includegraphics[width=\columnwidth]{oauth2-flow} 
     \caption{Diagramma di flusso dell'autorizzazione con \acrshort{oauth2}\footcite{site:oauth-flow-img}}
+    \label{fig:oauth-flow-img}
 \end{figure}
 \subsubsection{\acrlong{oidc}}
 \acrshort{oidc}\footcite{site:oidc} è un protocollo di autenticazione basato su \acrshort{oauth2}, utilizzato per l'autenticazione degli utenti in applicazioni web e mobile. Progettato per risolvere il problema dell'autenticazione sicura e decentralizzata in applicazioni di terze parti, consente agli utenti di utilizzare l'\acrshort{sso} per accedere a diverse applicazioni, senza, quindi, dover creare un nuovo account per ogni applicazione, bensì delegando l'autenticazione ad un provider esterno (OpenID Provider).
 
-\acrshort{oidc} fornisce un framework standard per l'autenticazione basata su JSON Web Tokens (JWT), in cui l'utente viene autenticato una sola volta e poi viene rilasciato un token di accesso contenente le informazioni di base dell'utente, come l'identificatore univoco, il nome e l'e-mail, che può essere utilizzato per accedere alle risorse protette \autoref{fig:oidc-flow-img}.
+\acrshort{oidc} fornisce un framework standard per l'autenticazione basata su JSON Web Tokens (JWT), in cui l'utente viene autenticato una sola volta e poi viene rilasciato un token di accesso contenente le informazioni di base dell'utente, come l'identificatore univoco, il nome e l'e-mail, che può essere utilizzato per accedere alle risorse protette (\autoref{fig:oidc-flow-img}).
 
 Questo protocollo è stato adottato da molte grandi piattaforme online, tra cui Google, Microsoft e Amazon ed è anche supportato da molte librerie di sviluppo, caratteristica che lo rende semplice da implementare per gli sviluppatori.
 
@@ -83,6 +85,7 @@ Questo protocollo è stato adottato da molte grandi piattaforme online, tra cui 
     \centering 
     \includegraphics[width=\columnwidth]{oidc-flow} 
     \caption{Diagramma di flusso dell'autenticazione con \acrshort{oidc}\footcite{site:oidc-flow-img}}
+    \label{fig:oidc-flow-img}
 \end{figure}
 
 \subsection{Linux \acrlong{pam}}

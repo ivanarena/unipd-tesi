@@ -21,7 +21,7 @@ Successivamente, ho creato un utente FreeIPA che utilizzasse come unico metodo d
 
 Configurata correttamente l'infrastruttura di autenticazione sia su Monokee che su FreeIPA, ho proceduto a verificarne il funzionamento seguendo le indicazioni della documentazione relativa: dapprima, ho generato un file per l'autenticazione tramite canale FAST con il comando \texttt{kinit -n -c ./fast.ccache}; successivamente, ho richiesto l'autenticazione anonima tramite PKINIT con il comando \texttt{kinit -T ./fast.ccache monokee1}; a questo punto, viene eseguito il flusso di \acrshort{oidc} e viene mostrato un URL al quale autenticarsi tramite \acrshort{sso} di Monokee; ad autenticazione eseguita, basta tornare sul terminale e premere invio per completare l'autenticazione.
 
-Per verificare la corretta autenticazione ho poi lanciato il comando \texttt{klist}, che mostra i ticket Kerberos richiesti, e controllato che l'utente attuale fosse lo stesso con cui volevo autenticarmi e che il ticket fosse valido \autoref{fig:ipa-cli}.  
+Per verificare la corretta autenticazione ho poi lanciato il comando \texttt{klist}, che mostra i ticket Kerberos richiesti, e controllato che l'utente attuale fosse lo stesso con cui volevo autenticarmi e che il ticket fosse valido (\autoref{fig:ipa-cli}).  
 
 \begin{figure}[!h] 
     \centering 
