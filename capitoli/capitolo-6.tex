@@ -11,8 +11,22 @@
 
 
 \section{Configurazione Monokee}
-All'interno dell'ambiente di test di Monokee, tramite l'interfaccia web, ho creato una nuova applicazione \acrshort{oauth2}\footcite{site:oauth-flow} ed un nuovo \acrshort{oidc} provider, che fornisse gli end-point per l'autenticazione via \acrshort{oidc}\footcite{site:monokee-docs}.
+All'interno dell'ambiente di test di Monokee, tramite l'interfaccia web, ho creato una nuova applicazione \acrshort{oauth2}\footcite{site:oauth-flow} \autoref{fig:monokee-oauth} ed un nuovo \acrshort{oidc} provider \autoref{fig:monokee-oidc}, che fornisse gli end-point per l'autenticazione via \acrshort{oidc}\footcite{site:monokee-docs}.
 
+
+\begin{figure}[!h] 
+    \centering 
+    \includegraphics[width=0.7\columnwidth]{monokee-oauth-app} 
+    \caption{Schermata di creazione app \acrshort{oauth2} da Monokee}
+    \label{fig:monokee-oauth}
+\end{figure}
+
+\begin{figure}[!h] 
+    \centering 
+    \includegraphics[width=0.7\columnwidth]{monokee-oidc} 
+    \caption{Schermata di creazione \acrshort{oidc} provider da Monokee}
+    \label{fig:monokee-oidc}
+\end{figure}
 
 \section{Configurazione FreeIPA}
 Da FreeIPA, ho proceduto a configurare un nuovo Identity Provider server, tramite la sezione della \acrfull{gui} di cui sopra, inserendo tutte i metadati richiesti, facendo riferimento all'applicazione \acrshort{oauth2} creata su Monokee e agli end-point forniti dall'OpenID provider configurato precedentemente.
@@ -37,6 +51,7 @@ Durante l'integrazione dell'\acrshort{sso} tramite FreeIPA, nonché già dal pro
 
 In primis, a rendere il processo più faticoso del previsto, è stata la mancanza di una  documentazione esaustiva e di informazioni utili in rete in merito alla risoluzione degli errori, dovuta probabilmente alla userbase di FreeIPA, che, benché tale servizio sia lo standard in ambito \acrshort{iam}, è alquanto ridotta.
 
+% TODO sistemare inconsistenze citare online
 In secondo luogo, ho riscontrato errori di inconsistenza piuttosto limitanti tra i registri di FreeIPA e quelli di sistema, oltre che difetti di compatibilità della piattaforma con alcune versioni di \acrshort{centos} e \acrshort{rhel}.
 
 Infine, l'autenticazione di FreeIPA tramite Monokee \acrshort{sso} non riesce a sovrascrivere quella di UNIX quando si vuole raggiungere una macchina tramite \acrshort{ssh} su un utente Monokee già configurato sul server. 

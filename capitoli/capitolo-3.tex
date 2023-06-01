@@ -11,7 +11,7 @@
 
 %**************************************************************
 
-\section{\acrlong{idaas}}
+\section{Identity as a Service}
 
 \acrshort{idaas}\footcite{site:idaas}, acronimo di Identity as a Service, è un modello di distribuzione dei servizi di gestione delle identità basato su cloud. Con \acrshort{idaas}, un'organizzazione può affidare la gestione delle identità dei propri utenti a un provider di servizi esterno, eliminando la necessità di mantenere un'infrastruttura locale per la registrazione degli utenti, l'autenticazione e l'autorizzazione degli utenti, la gestione delle password e la gestione delle sessioni.
 
@@ -21,7 +21,7 @@ Tra le funzionalità comuni offerte dai servizi \acrshort{idaas} ci sono l'integ
 
 Utilizzando \acrshort{idaas}, le organizzazioni possono beneficiare di diversi vantaggi, tra cui una maggiore agilità nell'onboarding e nella gestione degli utenti, un'esperienza utente migliorata grazie a un'unica identità digitale per l'accesso a più servizi, una maggiore sicurezza grazie all'implementazione di misure di autenticazione avanzate e un risparmio sui costi e sulla complessità operativa associata alla gestione delle identità.
 
-\subsection{\acrlong{iam}}
+\subsection{Identity and Access Management}
 
 \acrshort{iam}\footcite{site:iam}, è un insieme di processi, politiche, tecnologie e strumenti utilizzati per gestire l'identità digitale e il controllo degli accessi agli utenti all'interno di un'organizzazione. L'obiettivo principale di \acrshort{iam} è garantire che le persone giuste abbiano accesso alle risorse appropriate al momento opportuno, in modo sicuro e conforme alle politiche aziendali.
 
@@ -32,9 +32,9 @@ Alcune delle funzionalità chiave di \acrshort{iam} includono la gestione centra
 L'implementazione di un sistema \acrshort{iam} efficace può portare a numerosi benefici per un'organizzazione, come una maggiore sicurezza dei dati, la conformità normativa, una migliore gestione delle risorse IT, una riduzione dei rischi e un'efficienza operativa migliorata.
 
 
-\subsection{\acrlong{sso}\footcite{site:sso}}
+\subsection{Single Sign-on}
 
-L'\acrshort{sso} è una tecnologia che consente agli utenti di accedere a più applicazioni e servizi utilizzando un'unica identità di accesso. In pratica, l'utente inserisce le proprie credenziali di accesso una sola volta e successivamente può accedere a tutte le applicazioni e servizi che supportano l'\acrshort{sso} senza dover inserire nuovamente le credenziali, alternativamente a come accade con l'autenticazione tradizionale. Ciò può risultare particolarmente vantaggioso se l'utente necessita di accedere a molte applicazioni o servizi diversi.
+L'\acrshort{sso}\footcite{site:sso} è una tecnologia che consente agli utenti di accedere a più applicazioni e servizi utilizzando un'unica identità di accesso. In pratica, l'utente inserisce le proprie credenziali di accesso una sola volta e successivamente può accedere a tutte le applicazioni e servizi che supportano l'\acrshort{sso} senza dover inserire nuovamente le credenziali, alternativamente a come accade con l'autenticazione tradizionale. Ciò può risultare particolarmente vantaggioso se l'utente necessita di accedere a molte applicazioni o servizi diversi.
 
 L'\acrshort{sso} funziona attraverso l'utilizzo di un'autorità di autenticazione centralizzata, chiamata \acrfull{idp}. L'\acrshort{idp} autentica l'utente e fornisce un token di sicurezza che contiene le informazioni sull'utente e sui servizi a cui ha accesso. Questo token può essere utilizzato per accedere a tutti i servizi che supportano tale sistema.
 
@@ -42,7 +42,7 @@ Per utilizzare l'\acrshort{sso}, le applicazioni e i servizi devono supportare u
 
 L'\acrshort{sso} offre, dunque, numerosi vantaggi, tra cui una maggiore comodità per gli utenti, una maggiore sicurezza attraverso l'utilizzo di token di sicurezza a breve termine e una maggiore efficienza nella gestione delle identità e delle autorizzazioni degli utenti. Tuttavia, l'\acrshort{sso} richiede una pianificazione e una configurazione adeguata per garantire la sicurezza e la protezione dei dati degli utenti.
 
-\subsubsection{\acrlong{saml}}
+\subsubsection{Security Assertion Markup Language}
 
 \acrshort{saml}\footcite{site:saml}, acronimo di Security Assertion Markup Language, è uno standard di autenticazione e autorizzazione basato su XML utilizzato per consentire la condivisione sicura di informazioni di autenticazione tra un fornitore di identità (Identity Provider) e un fornitore di servizi (Service Provider).
 
@@ -61,7 +61,7 @@ Il flusso di lavoro tipico di \acrshort{saml} coinvolge tre componenti principal
     \label{fig:saml-flow}
 \end{figure}
 
-\subsubsection{\acrlong{oauth2}}
+\subsubsection{OAuth2}
 \acrshort{oauth2}\footcite{site:what-is-oauth} è un protocollo di autorizzazione che consente a un'applicazione di accedere alle risorse di un utente senza richiedere le credenziali dell'utente - e, di conseguenza, senza memorizzarle - nato per assicurare l'accesso sicuro e controllato ai dati di un utente da parte di applicazioni di terze parti.
 
 Funziona attraverso una serie di flussi di autorizzazione, in cui l'utente concede l'autorizzazione all'applicazione per accedere alle sue risorse. L'applicazione, a sua volta, ottiene un token di accesso che può essere utilizzato per accedere alle risorse dell'utente (\autoref{fig:oauth-flow-img}).
@@ -74,7 +74,7 @@ Il protocollo \acrshort{oauth2} è utilizzato da molte grandi piattaforme online
     \caption{Diagramma di flusso dell'autorizzazione con \acrshort{oauth2}\footcite{site:oauth-flow-img}}
     \label{fig:oauth-flow-img}
 \end{figure}
-\subsubsection{\acrlong{oidc}}
+\subsubsection{OpenID Connect}
 \acrshort{oidc}\footcite{site:oidc} è un protocollo di autenticazione basato su \acrshort{oauth2}, utilizzato per l'autenticazione degli utenti in applicazioni web e mobile. Progettato per risolvere il problema dell'autenticazione sicura e decentralizzata in applicazioni di terze parti, consente agli utenti di utilizzare l'\acrshort{sso} per accedere a diverse applicazioni, senza, quindi, dover creare un nuovo account per ogni applicazione, bensì delegando l'autenticazione ad un provider esterno (OpenID Provider).
 
 \acrshort{oidc} fornisce un framework standard per l'autenticazione basata su JSON Web Tokens (JWT), in cui l'utente viene autenticato una sola volta e poi viene rilasciato un token di accesso contenente le informazioni di base dell'utente, come l'identificatore univoco, il nome e l'e-mail, che può essere utilizzato per accedere alle risorse protette (\autoref{fig:oidc-flow-img}).
@@ -88,14 +88,14 @@ Questo protocollo è stato adottato da molte grandi piattaforme online, tra cui 
     \label{fig:oidc-flow-img}
 \end{figure}
 
-\subsection{Linux \acrlong{pam}}
+\subsection{Linux Pluggable Authentication Modules}
 Linux \acrshort{pam} (Pluggable Authentication Modules) è un framework di autenticazione per i sistemi operativi Linux e UNIX che consente di configurare diversi metodi di autenticazione, come quella tramite password, a due fattori, basata su token, biometrica, ecc.
 
 Utilizzato in una vasta gamma di applicazioni e servizi, tra cui il sistema di login del sistema operativo ed il server \acrshort{ssh}, il framework di \acrshort{pam} è composto da una serie di moduli, ognuno dei quali implementa una particolare funzionalità di autenticazione. I moduli \acrshort{pam} sono progettati per essere "pluggable", ovvero possono essere facilmente sostituiti o aggiunti senza dover modificare il codice sorgente del sistema operativo.
 
 L'architettura modulare di \acrshort{pam} consente di creare una catena di moduli, in cui ciascuno dei quali può verificare una parte dell'identità dell'utente. Ad esempio, un modulo può verificare la password dell'utente, mentre un altro può verificare il certificato del client. Se uno qualsiasi dei moduli nella catena fallisce, l'intero processo di autenticazione viene interrotto. Inoltre, è possibile sviluppare dei moduli personalizzati ed integrarli nelle diverse funzioni che richiedono \acrshort{pam}.
 
-\section{\acrlong{ssi}}
+\section{Self-Sovereign Identity}
 
 La \acrfull{ssi}\footcite{site:ssi} è un nuovo approccio alla gestione delle identità digitali che consente agli utenti di possedere, controllare e condividere le proprie informazioni di identità in modo sicuro e privato. A differenza dei sistemi di identità tradizionali, in cui le informazioni di identità sono conservate in modo centralizzato da terze parti, l'\acrshort{ssi} consente agli utenti di essere i proprietari esclusivi dei propri dati di identità digitali.
 

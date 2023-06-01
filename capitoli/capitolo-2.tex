@@ -26,6 +26,9 @@ Il piano di lavoro dello stage individuava tre periodi principali:
 
 
 \section{Tecnologie utilizzate}
+
+Durante il periodo di stage ho avuto modo di utilizzare tecnologie per me nuove, oltre che approfondire la conoscenza di altre. Nelle sezioni seguenti sono illustrate tali tecnologie e strumenti.
+
 \subsection{FreeIPA}
 FreeIPA\footcite{site:freeipa-website} (\autoref{fig:logo-freeipa}) è una soluzione open-source gratuita (GNU General Public License) di gestione dell'identità e dell'accesso per ambienti di rete basati su Linux/UNIX, originariamente sviluppato dalla comunità Fedora ed ora supportato da diverse organizzazioni, tra cui Red Hat e la FreeIPA Foundation. Consiste in un insieme di servizi integrati, che consentono di centralizzare l'autenticazione, l'autorizzazione e la gestione degli utenti e delle risorse in un'organizzazione.
 
@@ -45,7 +48,7 @@ Per archiviare e gestire le informazioni sugli utenti, i gruppi e le risorse del
 
 FreeIPA supporta l'autenticazione \acrshort{sso} tramite i protocolli \acrfull{saml} (Security Assertion Markup Language) e OICD: ciò significa che gli utenti possono accedere a più applicazioni utilizzando le stesse credenziali di accesso.
 
-\subsection{\acrlong{lxc}}
+\subsection{Linux Containers}
 \acrfull{lxc} è l'acronimo di Linux Containers, un sistema di virtualizzazione basato sul kernel Linux che consente di eseguire più sistemi operativi isolati su una singola macchina host. A differenza della virtualizzazione completa, in cui ogni sistema operativo guest ha accesso all'intero hardware dell'host, 
 
 Utilizza la virtualizzazione basata sui contenitori, in cui ogni sistema operativo guest condivide le risorse hardware dell'host.
@@ -59,7 +62,7 @@ In particolare, ho utilizzato l'ultima versione di \acrshort{centos} Stream (ver
 
 Un'altra differenza tra \acrshort{centos} e \acrshort{centos} Stream è la durata del supporto: \acrshort{centos} ha, storicamente, fornito un supporto a lungo termine per le versioni rilasciate; la versione Stream, al contrario, è progettata per essere una piattaforma di sviluppo in continuo aggiornamento e non offre, dunque, il supporto a lungo termine.
 
-\subsection{\acrlong{ssh}}
+\subsection{Secure Shell}
 Secure Shell (\acrshort{ssh}) è un protocollo di rete crittografato utilizzato per la gestione sicura di dispositivi di rete e per l'accesso remoto a sistemi informatici. Il protocollo \acrshort{ssh} fornisce un canale di comunicazione sicuro tra due dispositivi, garantendo l'integrità, la riservatezza e l'autenticità delle informazioni trasmesse.
 
 L'autenticazione avviene attraverso l'uso di chiavi pubbliche e private: in questo metodo, un'entità che desidera accedere a un sistema remoto genera una coppia di chiavi, una pubblica e una privata; la chiave pubblica viene fornita al sistema remoto, mentre la chiave privata viene conservata dall'entità; quando l'entità si connette al sistema remoto, la chiave privata viene utilizzata per autenticare l'entità.
@@ -70,10 +73,10 @@ Inoltre, \acrshort{ssh} utilizza la crittografia per proteggere i dati trasferit
 
 Proxmox è una piattaforma di virtualizzazione open source che combina la virtualizzazione basata su container (\acrshort{lxc}) e la virtualizzazione basata su macchine virtuali (\acrfull{kvm}) in un'unica soluzione. È progettato per consentire la creazione, la gestione e l'esecuzione di macchine virtuali e container su un unico sistema, fornendo un ambiente flessibile e scalabile per le infrastrutture IT.
 
-Una delle caratteristiche principali di Proxmox è la sua interfaccia di gestione Web, chiamata \acrfull{PVE}, che fornisce un'interfaccia grafica intuitiva per la gestione delle risorse di virtualizzazione. \acrshort{lxc} consente agli amministratori di creare, configurare e monitorare le macchine virtuali e i container, nonché di gestire l'archiviazione, la rete e altre risorse di sistema.
+Una delle caratteristiche principali di Proxmox è la sua interfaccia di gestione Web, chiamata \acrfull{pve}, che fornisce un'interfaccia grafica intuitiva per la gestione delle risorse di virtualizzazione. \acrshort{lxc} consente agli amministratori di creare, configurare e monitorare le macchine virtuali e i container, nonché di gestire l'archiviazione, la rete e altre risorse di sistema.
 
 Proxmox offre, inoltre, funzionalità avanzate come la migrazione live delle macchine virtuali, che consente di spostare una macchina virtuale in esecuzione da un nodo all'altro senza interruzioni di servizio. Ciò offre flessibilità nella gestione delle risorse e consente di bilanciare il carico di lavoro tra i nodi di virtualizzazione.
 
 La piattaforma è anche integrata con la gestione dell'archiviazione e della rete, consentendo la creazione e la gestione di storage e reti virtuali all'interno dell'ambiente di virtualizzazione: questo semplifica la gestione delle risorse e offre una maggiore flessibilità nella configurazione dell'infrastruttura di rete e storage.
 
-% TODO: fixare pagine biacnhe
+% TODO: ridisegnare diagrammi
