@@ -10,7 +10,7 @@
 \intro{In questo capitolo viene descritto il processo di ricerca e sperimentazione di una soluzione efficace per l'implementazione dell'\acrshort{sso} nativo}\\
 
 %**************************************************************
-\section{Linux \acrshort{pam}}
+\section{Linux Pluggable Authentication Modules}
 \label{sec:tecnologie-strumenti}
 
 La prima idea che ho avuto per integrare l'\acrshort{sso} di Monokee via \acrshort{ssh} sul container \acrshort{centos} che ho predisposto è stata quella di creare un nuovo modulo \acrshort{pam}. Ciò perché, studiando i file presenti al percorso \texttt{/etc/pam.d/} ho trovato il file \texttt{sshd}, che stabilisce i moduli da utilizzare per autenticazione, autorizzazione, sessione e gestione della password. In un primo momento mi sono concentrato sulla parte di autenticazione, controllando il file di configurazione \texttt{common-auth}, incluso in \texttt{/etc/pam.d/sshd}, che rappresenta l'autenticazione predefinita di UNIX (con password memorizzata localmente). 
@@ -21,16 +21,16 @@ La mia idea era, dunque, quella di rimuovere questi parametri e tornare all'aute
 
 Il problema restava quello del riconoscimento dell'utente ma avevo già pensato a diversi modi in cui poterlo risolvere, così ho deciso di proseguire e sperimentare con lo sviluppo di un modulo \acrshort{pam} di test, per verificare la fattibilità della mia intuizione.
 
-\subsection{Sviluppo del modulo \acrshort{pam}}
-Dapprima, ho deciso di sviluppare una semplice applicazione \acrshort{pam}-aware\footcite{site:pam-app}, ovvero compatibile con Linux \acrshort{pam}, utilizzando il linguaggio C e facendo riferimento alla documentazione trovata\footcite{site:writing-pam-application}\footcite{site:understanding-pam}\footcite{site:pam-configuration}\footcite{site:linux-man-online}.  
+\subsection{Sviluppo del modulo PAM}
+Dapprima, ho deciso di sviluppare una semplice applicazione \acrshort{pam}-aware\cite{site:pam-app}, ovvero compatibile con Linux \acrshort{pam}, utilizzando il linguaggio C e facendo riferimento alla documentazione trovata\cite{site:writing-pam-application}\cite{site:understanding-pam}\cite{site:pam-configuration}\cite{site:linux-man-online}.  
 
-Successivamente, ho sviluppato il modulo \acrshort{pam} di prova\footcite{site:pam-module}\footcite{site:pam-module-oidc} e l'ho impostato come metodo di autenticazione per l'\acrshort{ssh} con il seguente procedimento\footcite{site:writing-pam-module}: prima di tutto, ho modificato il file di configurazione \texttt{/etc/ssh/sshd\_conf} disattivando il parametro \texttt{Set PasswordAuthentication} ed attivando il parametro \texttt{Set Use\acrshort{pam}}; in seguito, ho modificato il file di configurazione dei moduli \acrshort{pam} da utilizzare per il servizio \acrshort{ssh}, \texttt{/etc/pam.d/sshd}, commentando tutte le righe che facevano riferimento all'autenticazione ed inserendo una riga con il nome del modulo di prova che ho sviluppato, etichettato come \texttt{auth  sufficient}, indicando che era sufficiente ottenere esito positivo da tale modulo per autenticarsi con successo. 
+Successivamente, ho sviluppato il modulo \acrshort{pam} di prova\cite{site:pam-module}\cite{site:pam-module-oidc} e l'ho impostato come metodo di autenticazione per l'\acrshort{ssh} con il seguente procedimento\cite{site:writing-pam-module}: prima di tutto, ho modificato il file di configurazione \texttt{/etc/ssh/sshd\_conf} disattivando il parametro \texttt{Set PasswordAuthentication} ed attivando il parametro \texttt{Set Use\acrshort{pam}}; in seguito, ho modificato il file di configurazione dei moduli \acrshort{pam} da utilizzare per il servizio \acrshort{ssh}, \texttt{/etc/pam.d/sshd}, commentando tutte le righe che facevano riferimento all'autenticazione ed inserendo una riga con il nome del modulo di prova che ho sviluppato, etichettato come \texttt{auth  sufficient}, indicando che era sufficiente ottenere esito positivo da tale modulo per autenticarsi con successo. 
 
-\section{FreeIPA \acrshort{idp}}
+\section{FreeIPA Identity Provider}
 
 Dato che la soluzione con il modulo \acrshort{pam} si è rivelata essere più impegnativa del previsto, ho deciso di provare a configurare l'\acrshort{sso} con Monokee da FreeIPA. 
 
-Navigando nell'interfaccia web del software, infatti, ho notato che nella sezione \textit{Authentication} > \textit{Identity Provider Servers} era possibile definire un \acrshort{idp} che utilizzasse \acrshort{oauth2} 2.0 come protocollo di autenticazione\footcite{site:freeipa-docs}.
+Navigando nell'interfaccia web del software, infatti, ho notato che nella sezione \textit{Authentication} > \textit{Identity Provider Servers} era possibile definire un \acrshort{idp} che utilizzasse \acrshort{oauth2} 2.0 come protocollo di autenticazione\cite{site:freeipa-docs}.
 
 A questo punto, con l'aiuto del team, e, in particolare, del \acrfull{cto} di \myAzienda, mi sono spostato sull'infrastruttura di testing di Monokee per configurare un'applicazione \acrshort{oauth2} da poter utilizzare come Identity Provider per FreeIPA.
 
