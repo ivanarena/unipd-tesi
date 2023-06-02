@@ -14,14 +14,14 @@
 All'interno dell'ambiente di test di Monokee, tramite l'interfaccia web, ho creato una nuova applicazione \acrshort{oauth2}\cite{site:oauth-flow} \autoref{fig:monokee-oauth} ed un nuovo \acrshort{oidc} provider \autoref{fig:monokee-oidc}, che fornisse gli end-point per l'autenticazione via \acrshort{oidc}\cite{site:monokee-docs}.
 
 
-\begin{figure}[!h] 
+\begin{figure}[H] 
     \centering 
     \includegraphics[width=0.7\columnwidth]{monokee-oauth-app} 
     \caption{Schermata di creazione app OAuth2 da Monokee}
     \label{fig:monokee-oauth}
 \end{figure}
 
-\begin{figure}[!h] 
+\begin{figure}[H] 
     \centering 
     \includegraphics[width=0.7\columnwidth]{monokee-oidc} 
     \caption{Schermata di creazione OpenID provider da Monokee}
@@ -37,7 +37,7 @@ Configurata correttamente l'infrastruttura di autenticazione sia su Monokee che 
 
 Per verificare la corretta autenticazione ho poi lanciato il comando \texttt{klist}, che mostra i ticket Kerberos richiesti, e controllato che l'utente attuale fosse lo stesso con cui volevo autenticarmi e che il ticket fosse valido (\autoref{fig:ipa-cli}).  
 
-\begin{figure}[!h] 
+\begin{figure}[H] 
     \centering 
     \includegraphics[width=\columnwidth]{ipa-cli} 
     \caption{Autenticazione con Monokee SSO tramite FreeIPA da CLI}
