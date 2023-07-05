@@ -1,3 +1,4 @@
 {
     "latex-workshop.latex.external.build.command": "./compile.sh",
+    "cSpell.enabled": true,
 }

@@ -51,13 +51,16 @@ su diversi tipi di autenticazione, sia passwordless che tramite soluzioni di \ac
 %**************************************************************
 \section{Il progetto}
 
+
+% TODO: spiega meglio cosa si intende, cosa vuol dire livello macchina e da sistema?
 L'idea per l'attività di stage nasce proprio dall'esigenza dell'azienda di aumentare la portata di Monokee estendendo il 
 relativo \acrshort{sso} anche a livello macchina, per poter, successivamente, configurare dei terminali
 che possano gestire accesso e sessioni degli utenti Monokee già da sistema.
 
-L'obiettivo del progetto del tirocinio era, dunque, era la ricerca e l'eventuale sviluppo di una soluzione che consentisse
+L'obiettivo del progetto del tirocinio era la ricerca e l'eventuale sviluppo di una soluzione che consentisse
 di accedere a macchine UNIX Debian e \acrfull{rhel} tramite il proprio account Monokee in modo nativo, sfruttando l'infrastruttura
 di \acrshort{sso} fornita dalla spin-off.
+% TODO: spiega cosa si intende per in modo nativo
 
 Il framework da utilizzare era FreeIPA, un gestore delle identità e degli accessi (\acrshort{iam})
 gratuito ed open-source che combina tecnologie quali Linux, \acrfull{ldap}, \acrfull{mit} Kerberos, \acrfull{ntp}, \acrfull{dns} ed \acrfull{sssd} e consta di un'interfaccia web
@@ -65,7 +68,7 @@ e di strumenti di amministrazione tramite command-line\cite{site:freeipa-website
 
 L'attività, dalla durata totale di circa trecento ore, si è sviluppata inizialmente in un fase di ricerca e sperimentazione
 con l'installazione del software FreeIPA su più macchine virtuali \acrfull{centos}, \acrfull{rhel} e Ubuntu,
-messe a disposizione dall'azienda tramite Proxmox.
+messe a disposizione dall'azienda tramite la piattaforma open-source di virtualizzazione Proxmox.
 
 La seconda fase è stata dedicata alla ricerca di un metodo che consentisse di effettuare l'autenticazione con il
 proprio account Monokee su tali macchine; in tal senso, è stata approfondita la parte relativa a 
@@ -73,10 +76,10 @@ Linux \acrshort{pam} per studiare la possibilità dello sviluppo di un modulo ag
 
 In seguito a tale ricerca, ho deciso di optare per il sistema di autenticazione tramite Identity Provider esterno
 messo a disposizione dall'applicativo di FreeIPA e di procedere, dunque, con la configurazione di un'applicazione
-Monokee \acrfull{oauth2} e di un provider \acr{\acrfull{oidc} che fornissero gli end-point e l'infrastruttura 
+Monokee \acrfull{oauth2} e di un provider \acrfull{oidc} che fornissero gli end-point e l'infrastruttura 
 necessari alla comunicazione con il server di FreeIPA e la successiva implementazione degli stessi su di esso. 
 
-Verificato il corretto funzionamento di questo sistema di autenticazione da \arcfull{cli}, ho proseguito cercando di implementare questo sistema anche tramite \acrfull{ssh} fino al raggiungimento delle ore previste, tuttavia, senza successo.
+Verificato il corretto funzionamento di questo sistema di autenticazione da \arcfull{cli}, ho proseguito cercando di implementare questo sistema anche tramite \acrfull{ssh} ma non sono riuscito a terminare l'implementazione prima del raggiungimento del monte ore totale a disposizione. 
 
 
 
