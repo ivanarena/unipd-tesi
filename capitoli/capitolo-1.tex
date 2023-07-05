@@ -52,34 +52,36 @@ su diversi tipi di autenticazione, sia passwordless che tramite soluzioni di \ac
 \section{Il progetto}
 
 
-% TODO: spiega meglio cosa si intende, cosa vuol dire livello macchina e da sistema?
-L'idea per l'attività di stage nasce proprio dall'esigenza dell'azienda di aumentare la portata di Monokee estendendo il 
-relativo \acrshort{sso} anche a livello macchina, per poter, successivamente, configurare dei terminali
-che possano gestire accesso e sessioni degli utenti Monokee già da sistema.
+% I preliminari. Di cosa si parla nella tesi? Che cos'è un sistema di autenticazione, quale ruolo ha in un sistema informatico e perché è importante?
 
-L'obiettivo del progetto del tirocinio era la ricerca e l'eventuale sviluppo di una soluzione che consentisse
-di accedere a macchine UNIX Debian e \acrfull{rhel} tramite il proprio account Monokee in modo nativo, sfruttando l'infrastruttura
-di \acrshort{sso} fornita dalla spin-off.
-% TODO: spiega cosa si intende per in modo nativo
+Generalmente, per poter utilizzare un sistema, sia esso fisico, come, ad esempio, un computer, o virtuale, come un servizio web, è necessario disporre di un'identità digitale che certifichi che l'utente abbia il permesso di utilizzare tale sistema. Per associare la propria identità digitale al dispositivo o servizio che si vuole utilizzare occorre effettuare un'autenticazione attraverso il sistema (o i sistemi) messi a disposizione dallo stesso. Il processo di autenticazione risulta, dunque, fondamentale e prioritario nel mondo dell'informatica. I sistemi basati su UNIX utilizzan un metodo di autenticazione relativamente semplice che utilizza la tecnologia \acrfull{pam}, memorizzando i dati degli utenti su dei file di testo locali. Esistono, però, anche metodi di autenticazione più complessi, come il \acrfull{sso}, che, per mezzo di diversi protocolli, consente ad un utente di autenticarsi a più servizi contemporaneamente utilizzando le stesse credenziali.
+\\ \\
+L'idea per il progetto dello stage nasce dall'esigenza di \myAzienda{} di estendere le funzionalità rese disponibili da Monokee in ambito di gestione degli accessi e delle identità digitali.
+Monokee dispone di un \acrshort{sso} interno, che permette l'accesso canonico tramite nome utente e password, ma anche tramite credenziali biometriche, account Google e MetaMask. Queste funzionalità, tuttavia, sono disponibili unicamente attraverso l'interfaccia web, perciò il desiderio dell'azienda era quello di renderle disponibili anche dal terminale di macchine con sistemi operativi Linux-based, poiché da loro ampiamente utilizzate. 
 
-Il framework da utilizzare era FreeIPA, un gestore delle identità e degli accessi (\acrshort{iam})
-gratuito ed open-source che combina tecnologie quali Linux, \acrfull{ldap}, \acrfull{mit} Kerberos, \acrfull{ntp}, \acrfull{dns} ed \acrfull{sssd} e consta di un'interfaccia web
-e di strumenti di amministrazione tramite command-line\cite{site:freeipa-website}. 
+Il fine dell'attività di tirocinio era, dunque, quello di ricercare, ed, eventualmente, sviluppare, una soluzione che consentisse effettuare l'autenticazione al proprio account Monokee tramite il relativo \acrshort{sso} proprietario da riga di comando, in particolare, da macchine UNIX Debian e \acrfull{rhel}.
+\\ \\
+Il framework consigliato per il progetto da \myAzienda{} era FreeIPA, un gestore delle identità e degli accessi (\acrshort{iam})
+gratuito ed open-source che combina varie tecnologie, quali Linux, \acrfull{ldap}, \acrfull{mit} Kerberos, \acrfull{ntp}, \acrfull{dns} ed \acrfull{sssd}, e consta di un'interfaccia web e di strumenti di amministrazione tramite command-line\cite{site:freeipa-website}. 
 
-L'attività, dalla durata totale di circa trecento ore, si è sviluppata inizialmente in un fase di ricerca e sperimentazione
-con l'installazione del software FreeIPA su più macchine virtuali \acrfull{centos}, \acrfull{rhel} e Ubuntu,
-messe a disposizione dall'azienda tramite la piattaforma open-source di virtualizzazione Proxmox.
+Tramite FreeIPA è possibile configurare un server in cui vengono memorizzate tutte le informazioni relative agli utenti, come le credenziali, i ruoli ed i rispettivi privilegi, consentendo, così, di amministrare facilmente le identità digitali condivise attraverso una stessa rete di dispositivi, sostituendo un più ampio sistema di autenticazione a quello già presente nativamente sui dispositivi in questione (in questo caso \acrshort{pam} per i dispositivi Linux). 
 
-La seconda fase è stata dedicata alla ricerca di un metodo che consentisse di effettuare l'autenticazione con il
-proprio account Monokee su tali macchine; in tal senso, è stata approfondita la parte relativa a 
-Linux \acrshort{pam} per studiare la possibilità dello sviluppo di un modulo aggiuntivo. 
 
-In seguito a tale ricerca, ho deciso di optare per il sistema di autenticazione tramite Identity Provider esterno
-messo a disposizione dall'applicativo di FreeIPA e di procedere, dunque, con la configurazione di un'applicazione
-Monokee \acrfull{oauth2} e di un provider \acrfull{oidc} che fornissero gli end-point e l'infrastruttura 
-necessari alla comunicazione con il server di FreeIPA e la successiva implementazione degli stessi su di esso. 
+% La soluzione. Cosa fa l’estensione di Monokee che hai sviluppato? Come si incastra nel resto della struttura preesistente? Quali nuove funzionalità introduce e/o problemi risolve? Come hai affrontato il problema? Descrivi cosa hai fatto e in che misura risolve il problema. Descrivi anche gli svantaggi, e la parte che non hai completato, ma senza svalutare quello che hai fatto.
+\\ \\
+\\ \\
+L'attività, dalla durata totale di circa trecento ore, si è sviluppata in, essenzialmente, tre fasi.
 
-Verificato il corretto funzionamento di questo sistema di autenticazione da \arcfull{cli}, ho proseguito cercando di implementare questo sistema anche tramite \acrfull{ssh} ma non sono riuscito a terminare l'implementazione prima del raggiungimento del monte ore totale a disposizione. 
+In una prima fase, mi sono occupato di configurare diverse macchine \acrfull{centos}, \acrfull{rhel} e Ubuntu,
+alcune delle quali messe a disposizione dall'azienda tramite la piattaforma open-source di virtualizzazione Proxmox, altre costruite localmente sul mio dispositivo con il modulo di virtualizzazione di Linux, \acrfull{lxc}, per poi installare e configurare FreeIPA su ognuna di esse, utilizzando una macchina come server e le altre come client, per verificare il corretto funzionamento della gestione delle identità e della comunicazione all'interno di una stessa rete.
+
+Successivamente, mi sono dedicato alla ricerca di un metodo che consentisse di utlizzare il sistema di \acrshort{sso} di Monokee da terminale per autenticarsi. Inizialmente, ho studiato l'autenticazione tramite Linux \acrshort{pam} ed ho valutato la possibilità di sviluppare un modulo aggiuntivo per \acrshort{pam} che integrasse la funzionalità ricercata, aderendo ai protocolli di autenticazione maggiormente utilizzati. Tuttavia, ho deciso di non proseguire ulteriormente con questa opzione dopo aver trovato una soluzione più efficiente, resa disponibile dall'applicativo di FreeIPA.
+
+Nell'ultima fase del mio lavoro, infatti, ho sfruttato il sistema di autenticazione tramite Identity Provider esterno di FreeIPA, creando un utente associato al mio indirizzo e-mail di Monokee e configurando, lato Monokee, un'applicazione \acrfull{oauth2} ed un provider \acrfull{oidc}, impiegando due protocolli (rispettivamente di autorizzazione e di autenticazione) ampiamente utilizzati in questo tipo di sistemi, per poi comunicare al server gli specifici indirizzi richiesti dai protocolli per verificare l'identità dell'utente da riga di comando.
+
+Grazie questa soluzione, ogni utente di Monokee ha la possibilità di accedere al proprio account dal terminale di una qualunque delle macchine configurate con FreeIPA, utilizzando lo stesso \acrshort{sso} precedentemente disponibile solo attraverso l'interfaccia web, ed operare su di esse.
+
+Infine, ho proseguito con lo sviluppo cercando di migliorare ulteriormente la soluzione trovata provando ad estendere la possibilità di accedere ai dispositivi già configurati da qualunque altro dispositivo, utilizzando la tecnologia \acrfull{ssh}. Tuttavia, non sono riuscito a terminare l'implementazione prima del raggiungimento del monte ore totale a disposizione. 
 
 
 
