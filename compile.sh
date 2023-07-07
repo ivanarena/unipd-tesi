@@ -6,6 +6,7 @@ BUILD_DIR="build"
 
 # Thesis root .tex file name
 THESIS="tesi"
+SLIDES="slide"
 
 loadParams() {
   GLOSSARY=true
@@ -52,6 +53,7 @@ printHelp() {
 
 compile() {
   pdflatex -output-directory=$BUILD_DIR -interaction=nonstopmode $THESIS 
+  pdflatex -output-directory=$BUILD_DIR -interaction=nonstopmode $SLIDES 
 }
 
 makeGlossary() {
@@ -119,6 +121,7 @@ main() {
 
   # Move generated pdf to the same level of the source file
   mv $BUILD_DIR/$THESIS.pdf ./"$PDF_NAME.pdf"
+  mv $BUILD_DIR/$SLIDES.pdf ./"slide.pdf"
 }
 
 main "$@"
