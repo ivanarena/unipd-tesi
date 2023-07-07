@@ -1,0 +1,114 @@
+\documentclass{beamer}
+
+\usetheme{Padova}
+\usepackage[english, italian]{babel}
+\usepackage{float}
+
+\title{Integrazione di Single Sign-On in Unix Pluggable Authentication Module (Unix PAM)}
+\subtitle{Dipartimento di Matematica ”Tullio Levi-Civita" \\ Università degli Studi di Padova \\ Laurea in Informatica}
+\author{Ivan Antonino Arena}
+\date{20 luglio 2023}
+
+
+\begin{document}
+
+	\maketitle
+
+	\begin{frame}{Outline}
+		\tableofcontents
+	\end{frame}
+
+
+	\section{Introduzione}
+	
+	\begin{frame}{Introduzione}
+		
+		\begin{figure}[H] 
+			\centering 
+			\includegraphics[width=0.4\columnwidth]{immagini/logo-athesys} 
+			\caption{Logo di Athesys Srl}
+			\label{fig:athesys}
+		\end{figure}
+		
+		Ricerca e sviluppo in ambito di sicurezza informatica con Athesys Srl:
+		
+		\begin{itemize}
+			\item Identità digitale \vspace{.5em}
+			\item Sistemi di autenticazione \vspace{.5em}
+		\end{itemize}
+	\end{frame}
+	
+	
+	\begin{frame}{L'azienda}
+		\begin{figure}[H] 
+			\centering 
+			\includegraphics[width=0.4\columnwidth]{immagini/logo-monokee} 
+			\caption{Logo di Monokee Srl}
+			\label{fig:monokee}
+		\end{figure}
+
+
+		\begin{itemize}
+			\item Soluzioni di sicurezza informatica \vspace{.5em}
+			\item Identity as a Service \vspace{.5em}
+			\item Single Sign-On \vspace{.5em}
+			\item Self-Sovereign Identity \vspace{.5em}
+		\end{itemize}	
+	\end{frame}
+	
+	\begin{frame}{Il progetto}
+		\begin{block}{Obiettivo}
+			Ricercare e sviluppare una soluzione che consenta di effettuare l'accesso a Monokee utilizzando il relativo SSO da riga di comando di dispositivi Linux (CentOS e RHEL).
+		\end{block}
+	\end{frame}
+
+	\section{Tecnologie utilizzate}
+	
+	\begin{frame}{Tecnologie utilizzate}
+				
+		\begin{itemize}
+			\item FreeIPA \vspace{.5em}
+			\item LXC/Proxmox \vspace{.5em}
+			\item Secure Shell (SSH) \vspace{.5em}
+		\end{itemize}
+		
+		\begin{figure}[H] 
+			\centering 
+			\includegraphics[width=0.4\columnwidth]{immagini/logo-freeipa.png} 
+			\caption{Logo di FreeIPA}
+			\label{fig:freeipa}
+		\end{figure}
+	\end{frame}
+
+	\section{Ricerca e sperimentazione}
+	
+	\begin{frame}{Configurazione dello stato iniziale}
+				
+		\begin{itemize}
+			\item Configurazione macchine CentOS, RHEL e Ubuntu \vspace{.5em}
+			\item Installazione FreeIPA \vspace{.5em}
+		\end{itemize}
+		
+	
+	\end{frame}
+
+
+
+
+	% EXAMPLE BLOCKS ---------------------------------------------
+	% \begin{frame}{L'azienda}
+	% 	\begin{block}{Normal block}
+	% 		Fusce luctus venenatis felis quis semper
+	% 	\end{block}
+
+	% 	\begin{alertblock}{Alert block}
+	% 		$$ E = (x_1 \vee \neg x_2 \vee \neg x_3) \wedge (x_1 \vee x_2 \vee x_4) $$
+	% 	\end{alertblock}
+
+	% 	\begin{exampleblock}{Example block}
+	% 		Proin tincidunt, neque at tincidunt mollis
+	% 	\end{exampleblock}
+	% \end{frame}
+
+
+\end{document}
