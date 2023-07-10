@@ -79,11 +79,17 @@
 			\label{fig:freeipa}
 		\end{figure}
 	\end{frame}
-
+	
 	\section{Ricerca e sperimentazione}
 	
 	\begin{frame}{Configurazione dello stato iniziale}
-				
+		\begin{figure}[H] 
+			\centering 
+			\includegraphics[width=0.6\columnwidth]{immagini/proxmox.png} 
+			\caption{Schermata VM Proxmox}
+			\label{fig:proxmox}
+		\end{figure}
+		
 		\begin{itemize}
 			\item Configurazione macchine CentOS, RHEL e Ubuntu \vspace{.5em}
 			\item Installazione FreeIPA \vspace{.5em}
@@ -102,14 +108,62 @@
 	\end{frame}
 	
 	\begin{frame}{FreeIPA Identity Provider}
-				
+		
 		\begin{itemize}
-			\item Configurazione macchine CentOS, RHEL e Ubuntu \vspace{.5em}
-			\item Installazione FreeIPA \vspace{.5em}
+			\item Configurazione OAuth2 e OIDC su Monokee \vspace{.5em}
+			\item Configurazione FreeIPA IdP \vspace{.5em}
+			\item PoC CLI Monokee SSO \vspace{.5em}
 		\end{itemize}
+		\begin{figure}[H] 
+			\centering 
+			\includegraphics[width=\columnwidth]{immagini/appendici/ipa-idp.png} 
+			\caption{Schermata FreeIPA IdP}
+			\label{fig:ipa-idp}
+		\end{figure}
+		
+	\end{frame}
+	\begin{frame}{OpenID Connect}
+		\begin{figure}[H] 
+			\centering 
+			\includegraphics[width=\columnwidth]{immagini/oidc-flow.png} 
+			\caption{Flusso autenticazione OIDC}
+			\label{fig:oidc-flow}
+		\end{figure}
+
+	\end{frame}
+	
+	\begin{frame}{Configurazione OAuth2 e OIDC su Monokee}
+		\begin{figure}[H] 
+			\centering 
+			\includegraphics[width=\columnwidth]{immagini/monokee-oidc.png} 
+			\caption{Schermata setup OIDC Monokee}
+			\label{fig:oidc-setup}
+		\end{figure}
 		
 	\end{frame}
 	
+	\begin{frame}{Configurazione FreeIPA IdP}
+		
+		\begin{figure}[H] 
+			\centering 
+			\includegraphics[width=\columnwidth]{immagini/appendici/ipa-user.png} 
+			\caption{Schermata setup utente FreeIPA}
+			\label{fig:ipa-setup-user}
+		\end{figure}
+		
+		
+	\end{frame}
+	
+	\begin{frame}{PoC CLI Monokee SSO}
+		\begin{figure}[H] 
+			\centering 
+			\includegraphics[width=\columnwidth]{immagini/ipa-cli.png} 
+			\caption{CLI PoC}
+			\label{fig:cli-sso}
+		\end{figure}
+		
+		
+	\end{frame}
 	\begin{frame}{Stato dello sviluppo}
 				
 		\begin{exampleblock}{Stato attuale}
