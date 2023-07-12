@@ -3,158 +3,131 @@
 % !TEX root = ../tesi.tex
 
 %**************************************************************
-\chapter{Studio tecnologico}
-\label{cap:studio-tecnologico}
+\chapter{Ricerca e sviluppo}
+\label{cap:ricerca-sperimentazione}
 %**************************************************************
 
-\intro{In questo capitolo vengono illustrati nel dettaglio i concetti e le tecnologie utlizzate.}\\
+\intro{In questo capitolo vengono descritti i processi di ricerca e sviluppo di una soluzione efficace per l'implementazione dell'\acrshort{sso} Monokee su Linux}\\
 
 %**************************************************************
+\section{Configurazione dello stato iniziale}
 
-\section{Identity as a Service}
+Avendo già familiarità con Ubuntu ho, inizialmente, verificato che il pacchetto del server di FreeIPA fosse presente su questa distribuzione: ho presto appreso che esso era discontinuo sulle ultime versioni del sistema operativo.
 
-\acrshort{idaas}\cite{site:idaas}, acronimo di Identity as a Service, è un modello di distribuzione dei servizi di gestione delle identità basato su cloud. Con \acrshort{idaas}, un'organizzazione può affidare la gestione delle identità dei propri utenti a un provider di servizi esterno, eliminando la necessità di mantenere un'infrastruttura locale per la registrazione degli utenti, l'autenticazione e l'autorizzazione degli utenti, la gestione delle password e la gestione delle sessioni.
+Così, ho deciso di optare per \acrshort{centos} Stream 9, ultima versione disponibile, per l'ottima compatibilità con FreeIPA e la migliore usabilità in ambienti server.
 
-I servizi \acrshort{idaas} sono solitamente forniti come un'offerta di software as a service (SaaS), accessibili tramite internet e scalabili in base alle esigenze dell'organizzazione. I provider di servizi \acrshort{idaas} gestiscono l'infrastruttura necessaria per garantire la sicurezza, la disponibilità e le prestazioni dei servizi di gestione delle identità.
+A questo punto, con l'aiuto del team di \myAzienda, ho configurato \acrshort{lxc} sulla mia macchina Ubuntu 22.04 \acrfull{lts}.
 
-Tra le funzionalità comuni offerte dai servizi \acrshort{idaas} ci sono l'integrazione con directory aziendali esistenti, la possibilità di supportare l'autenticazione a fattori multipli, l'autenticazione federata per consentire l'accesso a risorse esterne all'organizzazione e la gestione centralizzata delle autorizzazioni degli utenti.
+Tramite il comando \texttt{lxc-create -t download -n ipa-server}, ho creato un nuovo container con il nome di \emph{ipa-server} indicando di voler scaricare il template dalla lista di quelli disponibili, dalla quale ho scelto l'immagine di \acrshort{centos} Stream 9 (\autoref{fig:lxc-template}).
 
-Utilizzando \acrshort{idaas}, le organizzazioni possono beneficiare di diversi vantaggi, tra cui una maggiore agilità nell'onboarding e nella gestione degli utenti, un'esperienza utente migliorata grazie a un'unica identità digitale per l'accesso a più servizi, una maggiore sicurezza grazie all'implementazione di misure di autenticazione avanzate e un risparmio sui costi e sulla complessità operativa associata alla gestione delle identità.
-
-\subsection{Identity and Access Management}
-
-\acrshort{iam}\cite{site:iam}, è un insieme di processi, politiche, tecnologie e strumenti utilizzati per gestire l'identità digitale e il controllo degli accessi agli utenti all'interno di un'organizzazione. L'obiettivo principale di \acrshort{iam} è garantire che le persone giuste abbiano accesso alle risorse appropriate al momento opportuno, in modo sicuro e conforme alle politiche aziendali.
-
-Alcune delle funzionalità chiave di \acrshort{iam} includono la gestione centralizzata delle identità, la gestione dei ruoli e delle politiche di accesso, la gestione delle password, la gestione delle sessioni, la federazione dell'identità per consentire l'accesso a risorse esterne e l'integrazione con sistemi e applicazioni esistenti.
-
-\acrshort{iam} consente anche di implementare il principio del "least privilege", che significa assegnare agli utenti solo i privilegi necessari per svolgere il proprio lavoro, minimizzando così il rischio di abusi o accessi non autorizzati.
-
-L'implementazione di un sistema \acrshort{iam} efficace può portare a numerosi benefici per un'organizzazione, come una maggiore sicurezza dei dati, la conformità normativa, una migliore gestione delle risorse IT, una riduzione dei rischi e un'efficienza operativa migliorata.
+Dopo la creazione della macchina ho lanciato i comandi \texttt{lxc-start ipa-server} e \texttt{lxc-console ipa-server}, rispettivamente per avviare il container e per accedere al relativo terminale.
 
 
-\subsection{Single Sign-on}
+Dopo aver configurato il container per il server ed aver eseguito l'aggiornamento dei pacchetti con il comando \texttt{yum update}, sono passato all'installazione del server di FreeIPA, disponibile su quella release con il pacchetto \emph{freeipa-server}.
 
-L'\acrshort{sso}\cite{site:sso} è una tecnologia che consente agli utenti di accedere a più applicazioni e servizi utilizzando un'unica identità di accesso. In pratica, l'utente inserisce le proprie credenziali di accesso una sola volta e successivamente può accedere a tutte le applicazioni e servizi che supportano l'\acrshort{sso} senza dover inserire nuovamente le credenziali, alternativamente a come accade con l'autenticazione tradizionale. Ciò può risultare particolarmente vantaggioso se l'utente necessita di accedere a molte applicazioni o servizi diversi.
 
-L'\acrshort{sso} funziona attraverso l'utilizzo di un'autorità di autenticazione centralizzata, chiamata \acrfull{idp}. L'\acrshort{idp} autentica l'utente e fornisce un token di sicurezza che contiene le informazioni sull'utente e sui servizi a cui ha accesso. Questo token può essere utilizzato per accedere a tutti i servizi che supportano tale sistema.
+Al mio arrivo negli uffici di \myAzienda, l'azienda aveva già configurato per me un account sulla loro piattaforma di testing, \emph{test.monokee.com}, utilizzando come e-mail il mio indirizzo istituzionale e garantendomi l'accesso a tutte le risorse della piattaforma, oltre che alla documentazione aziendale.
 
-Per utilizzare l'\acrshort{sso}, le applicazioni e i servizi devono supportare uno dei protocolli \acrshort{sso} standard, come \acrshort{saml} (Security Assertion Markup Language) o \acrshort{oidc}. Questi protocolli definiscono il modo in cui le informazioni di autenticazione dell'utente vengono trasmesse tra le diverse applicazioni e servizi.
+Inoltre, avevano predisposto sull'intranet aziendale, tramite Proxmox, delle macchine virtuali \acrshort{centos} e \acrshort{rhel} pronte all'uso (\autoref{fig:proxmox}).
 
-L'\acrshort{sso} offre, dunque, numerosi vantaggi, tra cui una maggiore comodità per gli utenti, una maggiore sicurezza attraverso l'utilizzo di token di sicurezza a breve termine e una maggiore efficienza nella gestione delle identità e delle autorizzazioni degli utenti. Tuttavia, l'\acrshort{sso} richiede una pianificazione e una configurazione adeguata per garantire la sicurezza e la protezione dei dati degli utenti.
-
-\subsubsection{Security Assertion Markup Language}
-
-\acrshort{saml}\cite{site:saml}, acronimo di Security Assertion Markup Language, è uno standard di autenticazione e autorizzazione basato su XML utilizzato per consentire la condivisione sicura di informazioni di autenticazione tra un fornitore di identità (Identity Provider) e un fornitore di servizi (Service Provider).
-
-\acrshort{saml} è stato sviluppato per consentire l'integrazione tra applicazioni e servizi web di diverse organizzazioni, consentendo agli utenti di accedere a tali servizi con un'unica identità digitale senza dover creare account separati per ogni servizio.
-
-Il protocollo \acrshort{saml} funziona utilizzando il concetto di token di sicurezza chiamato "asserzione". Un'asserzione \acrshort{saml} contiene informazioni sull'identità dell'utente autenticato, come il nome utente, l'ID utente, i ruoli e altre attribuzioni. Queste asserzioni sono scambiate tra il fornitore di identità e il fornitore di servizi utilizzando messaggi XML.
-
-Il flusso di lavoro tipico di \acrshort{saml} coinvolge tre componenti principali: l'utente, il fornitore di identità e il fornitore di servizi. L'utente cerca di accedere a un servizio protetto dal fornitore di servizi. Il fornitore di servizi invia una richiesta di autenticazione al fornitore di identità. Il fornitore di identità autentica l'utente e genera un'asserzione \acrshort{saml} contenente le informazioni sull'identità. Questa asserzione viene quindi inviata al fornitore di servizi, che verifica l'asserzione e consente l'accesso al servizio richiesto (\autoref{fig:saml-flow}).
-
-\acrshort{saml} è ampiamente utilizzato per consentire l'autenticazione e l'autorizzazione federate in scenari come il Single Sign-On (\acrshort{sso}), ma è anche utilizzato in scenari di federazione di identità, in cui più organizzazioni collaborano per consentire l'accesso sicuro a risorse condivise tra i partecipanti.
 \begin{figure}[H] 
     \centering 
-    \includegraphics[width=\columnwidth]{saml-flow} 
-    \caption{Diagramma di flusso dell'autenticazione con SAML}
-    \label{fig:saml-flow}
+    \includegraphics[width=\columnwidth]{lxc-templates} 
+    \caption{Vista parziale del template download di LXC}
+    \label{fig:lxc-template}
 \end{figure}
 
-\subsubsection{OAuth2}
-\acrshort{oauth2}\cite{site:what-is-oauth} è un protocollo di autorizzazione che consente a un'applicazione di accedere alle risorse di un utente senza richiedere le credenziali dell'utente - e, di conseguenza, senza memorizzarle - nato per assicurare l'accesso sicuro e controllato ai dati di un utente da parte di applicazioni di terze parti.
+\vspace{1cm}
 
-Funziona attraverso una serie di flussi di autorizzazione, in cui l'utente concede l'autorizzazione all'applicazione per accedere alle sue risorse. L'applicazione, a sua volta, ottiene un token di accesso che può essere utilizzato per accedere alle risorse dell'utente (\autoref{fig:oauth-flow-img}).
-
-Il protocollo \acrshort{oauth2} è utilizzato da molte grandi piattaforme online come Google, Facebook e Twitter ed è diventato, di fatto, uno standard nei servizi cloud, nei social network, nei servizi di pagamento online e in molti altri contesti.
 \begin{figure}[H] 
     \centering 
-    \includegraphics[width=\columnwidth]{oauth2-flow} 
-    \caption{Diagramma di flusso dell'autorizzazione con OAuth2}
-    \label{fig:oauth-flow-img}
+    \includegraphics[width=\columnwidth]{proxmox} 
+    \caption{Schermata di Proxmox con VM avviata}
+    \label{fig:proxmox}
 \end{figure}
+\section{Linux Pluggable Authentication Modules}
+\label{sec:tecnologie-strumenti}
 
-\subsubsection{OpenID Connect}
-\acrshort{oidc}\cite{site:oidc} è un protocollo di autenticazione basato su \acrshort{oauth2}, utilizzato per l'autenticazione degli utenti in applicazioni web e mobile. Progettato per risolvere il problema dell'autenticazione sicura e decentralizzata in applicazioni di terze parti, consente agli utenti di utilizzare l'\acrshort{sso} per accedere a diverse applicazioni, senza, quindi, dover creare un nuovo account per ogni applicazione, bensì delegando l'autenticazione ad un provider esterno (OpenID Provider).
+La prima idea che ho avuto per integrare l'\acrshort{sso} di Monokee via \acrshort{ssh} sul container \acrshort{centos} che ho predisposto è stata quella di creare un nuovo modulo \acrshort{pam}. Ciò perché, studiando i file presenti al percorso \texttt{/etc/pam.d/}, ho trovato il file \texttt{sshd}, che stabilisce i moduli da utilizzare per autenticazione, autorizzazione, sessione e gestione della password. In un primo momento mi sono concentrato sulla parte di autenticazione, controllando il file di configurazione \texttt{common-auth}, incluso in \texttt{/etc/pam.d/sshd}, che rappresenta l'autenticazione predefinita di UNIX (con password memorizzata localmente). 
 
-\acrshort{oidc} fornisce un framework standard per l'autenticazione basata su JSON Web Tokens (JWT), in cui l'utente viene autenticato una sola volta e poi viene rilasciato un token di accesso contenente le informazioni di base dell'utente, come l'identificatore univoco, il nome e l'e-mail, che può essere utilizzato per accedere alle risorse protette (\autoref{fig:oidc-flow-img}).
+Tuttavia, l'installazione di FreeIPA sovrascrive il parametro \texttt{UsePam yes} del file \texttt{/etc/ssh/sshd\_config}, anteponendo dei parametri relativi a Kerberos, in modo da potersi autenticare con la password dell'utente FreeIPA specificato nel prefisso della macchina nel comando di \acrshort{ssh}.
 
-Questo protocollo è stato adottato da molte grandi piattaforme online, tra cui Google, Microsoft e Amazon ed è anche supportato da molte librerie di sviluppo, caratteristica che lo rende semplice da implementare per gli sviluppatori.
+La mia idea era, dunque, quella di rimuovere questi parametri e tornare all'autenticazione via \acrshort{pam}, sostituendo però il modulo predefinito con uno creato appositamente per l'\acrshort{sso} di Monokee.
+
+Il problema restava quello del riconoscimento dell'utente ma avevo già pensato a diversi modi in cui poterlo risolvere, così ho deciso di proseguire e sperimentare con lo sviluppo di un modulo \acrshort{pam} di test, per verificare la fattibilità della mia intuizione.
+
+\subsection{Sviluppo del modulo PAM}
+Dapprima, ho deciso di sviluppare una semplice applicazione \acrshort{pam}-aware\cite{site:pam-app}, ovvero compatibile con Linux \acrshort{pam}, utilizzando il linguaggio C e facendo riferimento alla documentazione trovata\cite{site:writing-pam-application}\cite{site:understanding-pam}\cite{site:pam-configuration}\cite{site:linux-man-online}.  
+
+Successivamente, ho sviluppato il modulo \acrshort{pam} di prova\cite{site:pam-module}\cite{site:pam-module-oidc} e l'ho impostato come metodo di autenticazione per l'\acrshort{ssh} con il seguente procedimento\cite{site:writing-pam-module}: prima di tutto, ho modificato il file di configurazione \texttt{/etc/ssh/sshd\_conf} disattivando il parametro \texttt{Set PasswordAuthentication} ed attivando il parametro \texttt{Set UsePam}; in seguito, ho modificato il file di configurazione dei moduli \acrshort{pam} da utilizzare per il servizio \acrshort{ssh}, \texttt{/etc/pam.d/sshd}, commentando tutte le righe che facevano riferimento all'autenticazione ed inserendo una riga con il nome del modulo di prova che ho sviluppato, etichettato come \texttt{auth  sufficient}, indicando che era sufficiente ottenere esito positivo da tale modulo per autenticarsi con successo. 
+
+\section{FreeIPA Identity Provider}
+
+Dato che la soluzione con il modulo \acrshort{pam} si è rivelata essere più laboriosa del previsto ed avendo scoperto una funzionalità analoga nell'applicativo di FreeIPA, ho deciso di provare a configurare l'\acrshort{sso} con Monokee utilizzando quest'ultimo. 
+
+Navigando nell'interfaccia web del software, infatti, ho notato che nella sezione \textit{Authentication} > \textit{Identity Provider Servers} era possibile definire un \acrshort{idp} che utilizzasse \acrshort{oauth2} 2.0 come protocollo di autenticazione\cite{site:freeipa-docs}.
+
+A questo punto, con l'aiuto del team, e, in particolare, del \acrfull{cto} di \myAzienda, mi sono spostato sull'infrastruttura di testing di Monokee per configurare un'applicazione \acrshort{oauth2} da poter utilizzare come Identity Provider per FreeIPA.
+
+\section{Configurazione Monokee}
+All'interno dell'ambiente di test di Monokee, tramite l'interfaccia web, ho creato una nuova applicazione \acrshort{oauth2}\cite{site:oauth-flow} (\autoref{fig:monokee-oauth}) ed un nuovo \acrshort{oidc} provider (\autoref{fig:monokee-oidc}), che fornisse gli end-point per l'autenticazione via \acrshort{oidc}\cite{site:monokee-docs}.
+
+
 \begin{figure}[H] 
     \centering 
-    \includegraphics[width=\columnwidth]{oidc-flow} 
-    \caption{Diagramma di flusso dell'autenticazione con OIDC}
-    \label{fig:oidc-flow-img}
+    \includegraphics[width=0.7\columnwidth]{monokee-oauth-app} 
+    \caption{Schermata di creazione app OAuth2 da Monokee}
+    \label{fig:monokee-oauth}
 \end{figure}
 
-\subsection{Linux Pluggable Authentication Modules}
-Linux \acrshort{pam} (Pluggable Authentication Modules) è un framework di autenticazione per i sistemi operativi Linux e UNIX che consente di configurare diversi metodi di autenticazione, come quella tramite password, a due fattori, basata su token, biometrica, ecc.
-
-Utilizzato in una vasta gamma di applicazioni e servizi, tra cui il sistema di login del sistema operativo ed il server \acrshort{ssh}, il framework di \acrshort{pam} è composto da una serie di moduli, ognuno dei quali implementa una particolare funzionalità di autenticazione. I moduli \acrshort{pam} sono progettati per essere "pluggable", ovvero possono essere facilmente sostituiti o aggiunti senza dover modificare il codice sorgente del sistema operativo.
-
-L'architettura modulare di \acrshort{pam} consente di creare una catena di moduli, in cui ciascuno dei quali può verificare una parte dell'identità dell'utente. Ad esempio, un modulo può verificare la password dell'utente, mentre un altro può verificare il certificato del client. Se uno qualsiasi dei moduli nella catena fallisce, l'intero processo di autenticazione viene interrotto. Inoltre, è possibile sviluppare dei moduli personalizzati ed integrarli nelle diverse funzioni che richiedono \acrshort{pam}.
-
-\section{Self-Sovereign Identity}
-
-La \acrfull{ssi}\cite{site:ssi} è un nuovo approccio alla gestione delle identità digitali che consente agli utenti di possedere, controllare e condividere le proprie informazioni di identità in modo sicuro e privato. A differenza dei sistemi di identità tradizionali, in cui le informazioni di identità sono conservate in modo centralizzato da terze parti, l'\acrshort{ssi} consente agli utenti di essere i proprietari esclusivi dei propri dati di identità digitali.
-
-L'\acrshort{ssi} si basa sulla tecnologia blockchain, che consente di creare registri distribuiti di informazioni sicure e immutabili. In tal modo, le informazioni di identità degli utenti vengono conservate in modo decentralizzato e sicuro, senza la necessità di un'autorità centralizzata di controllo.
-
-Per utilizzare l'\acrshort{ssi}, gli utenti creano un'identità digitale che include le informazioni di identità necessarie, come nome, indirizzo e informazioni di contatto. Questa identità digitale viene conservata sulla blockchain e protetta da una chiave privata unica, che solo l'utente possiede.
-
-Gli utenti possono utilizzare la propria identità digitale \acrshort{ssi} per accedere a servizi online e condividere le proprie informazioni di identità solo con le parti che desiderano. Questo viene fatto attraverso l'utilizzo di un protocollo di scambio di informazioni sicuro e decentralizzato, chiamato \acrfull{did}.
-
-L'\acrshort{ssi} offre numerosi vantaggi, tra cui un maggiore controllo e privacy per gli utenti rispetto ai sistemi di identità tradizionali, una maggiore sicurezza attraverso l'utilizzo della tecnologia blockchain e una maggiore efficienza nella gestione delle identità digitali. Tuttavia, è ancora una tecnologia emergente e richiede una maggiore adozione e sviluppo per diventare un approccio mainstream alla gestione delle identità digitali.
-
-\section{Tecnologie utilizzate}
-
-Durante il periodo di stage ho avuto modo di utilizzare tecnologie per me nuove, oltre che approfondire la conoscenza di altre. Nelle sezioni seguenti sono illustrate tali tecnologie e strumenti.
-
-\subsection{FreeIPA}
-FreeIPA\cite{site:freeipa-website} (\autoref{fig:logo-freeipa}) è una soluzione open-source gratuita (GNU General Public License) di gestione dell'identità e dell'accesso per ambienti di rete basati su Linux/UNIX, originariamente sviluppato dalla comunità Fedora ed ora supportato da diverse organizzazioni, tra cui Red Hat e la FreeIPA Foundation. Consiste in un insieme di servizi integrati, che consentono di centralizzare l'autenticazione, l'autorizzazione e la gestione degli utenti e delle risorse in un'organizzazione.
-
-
-
-
-FreeIPA è progettato per semplificare la gestione dell'identità e dell'accesso in ambienti di rete complessi, con molti utenti e computer. Consente agli amministratori di gestire facilmente l'accesso degli utenti a risorse e applicazioni, di delegare i privilegi di amministrazione e di definire ed applicare politiche di sicurezza coerenti in tutta la rete, come, ad esempio, limitare l'accesso alle risorse in base al ruolo dell'utente. Per fare ciò, mette a disposizione, oltre che agli strumenti della \acrshort{cli}, un'interfaccia utente web intuitiva per la gestione degli utenti, dei gruppi e delle risorse della rete. Inoltre, FreeIPA è altamente scalabile e può essere distribuito su più server per gestire grandi reti.
-
-Per l'autenticazione degli utenti, FreeIPA utilizza il protocollo Kerberos: gli utenti possono accedere alle risorse della rete utilizzando le loro credenziali Kerberos, senza dover inserire le password ogni volta.
-Per archiviare e gestire le informazioni sugli utenti, i gruppi e le risorse della rete, invece, utilizza il server di directory open-source 389 Directory Server, il quale offre funzionalità avanzate di ricerca, replica e sincronizzazione.
-
-FreeIPA supporta l'autenticazione \acrshort{sso} tramite i protocolli \acrfull{saml} (Security Assertion Markup Language) e OICD: ciò significa che gli utenti possono accedere a più applicazioni utilizzando le stesse credenziali di accesso.
 \begin{figure}[H] 
     \centering 
-    \includegraphics[width=0.45\columnwidth]{logo-freeipa} 
-    \caption{Logo di FreeIPA}
-    \label{fig:logo-freeipa}
+    \includegraphics[width=0.7\columnwidth]{monokee-oidc} 
+    \caption{Schermata di creazione OpenID provider da Monokee}
+    \label{fig:monokee-oidc}
 \end{figure}
 
-\subsection{Linux Containers}
-\acrshort{lxc} è l'acronimo di Linux Containers, un sistema di virtualizzazione basato sul kernel Linux che consente di eseguire più sistemi operativi isolati su una singola macchina host. A differenza della virtualizzazione completa, in cui ogni sistema operativo guest ha accesso all'intero hardware dell'host, 
+\section{Configurazione FreeIPA}
+Da FreeIPA, ho proceduto a configurare un nuovo Identity Provider server, tramite la sezione della \acrfull{gui} di cui sopra, inserendo tutte i metadati richiesti, facendo riferimento all'applicazione \acrshort{oauth2} creata su Monokee e agli end-point forniti dall'OpenID provider configurato precedentemente.
 
-Utilizza la virtualizzazione basata sui contenitori, in cui ogni sistema operativo guest condivide le risorse hardware dell'host.
-La condivisione del kernel fa sì che i container siano molto leggeri e veloci e che abbiano un overhead di risorse molto basso rispetto ad altre tecnologie di virtualizzazione.
+Successivamente, ho creato un utente FreeIPA che utilizzasse come unico metodo di autenticazione quella tramite Identity Provider esterno (\emph{External \acrshort{idp}}), scegliendo Monokee come \acrshort{idp} e come identificatore il mio indirizzo e-mail istituzionale, già associato al mio account Monokee, per poter eseguire l'accesso via \acrshort{sso} con le mie credenziali\cite{site:using-ext-idp-idm}.  
 
-\acrshort{lxc} fornisce un'interfaccia di riga di comando per la gestione dei container, che consente di creare, avviare, fermare, eliminare e gestire i container in modo semplice ed efficiente. Inoltre, supporta la creazione di immagini di container, che possono essere utilizzate per creare nuovi container in modo rapido e semplice.
-\\
-Durante l'attività di stage ho utilizzato principalmente container basati su immagini \acrshort{centos}, una distribuzione Linux basata su \acrshort{rhel} particolarmente adatta all'uso in ambiente server, che offre una vasta gamma di funzionalità e strumenti per gestire un'infrastruttura IT. 
+Configurata correttamente l'infrastruttura di autenticazione sia su Monokee che su FreeIPA, ho proceduto a verificarne il funzionamento seguendo le indicazioni della documentazione relativa: dapprima, ho generato un file per l'autenticazione tramite canale FAST con il comando \texttt{kinit -n -c ./fast.ccache}; successivamente, ho richiesto l'autenticazione anonima tramite PKINIT con il comando \texttt{kinit -T ./fast.ccache monokee1}; a questo punto, viene eseguito il flusso di \acrshort{oidc} e viene mostrato un URL al quale autenticarsi tramite \acrshort{sso} di Monokee; ad autenticazione eseguita, basta tornare sul terminale e premere invio per completare l'autenticazione.
 
-In particolare, ho utilizzato l'ultima versione di \acrshort{centos} Stream (versione 9), che, a differenza della versione standard, riceve gli aggiornamenti in tempo reale durante lo sviluppo di \acrshort{ssi}, consentendo agli utenti di testare e fornire feedback sulle nuove funzionalità e correzioni di bug in anteprima\cite{site:centos-stream}.
+Per verificare la corretta autenticazione ho poi lanciato il comando \texttt{klist}, che mostra i ticket Kerberos richiesti, e controllato che l'utente attuale fosse lo stesso con cui volevo autenticarmi e che il ticket fosse valido (\autoref{fig:ipa-cli}).  
 
-Un'altra differenza tra \acrshort{centos} e \acrshort{centos} Stream è la durata del supporto: \acrshort{centos} ha, storicamente, fornito un supporto a lungo termine per le versioni rilasciate; la versione Stream, al contrario, è progettata per essere una piattaforma di sviluppo in continuo aggiornamento e non offre, dunque, il supporto a lungo termine.
+\begin{figure}[H] 
+    \centering 
+    \includegraphics[width=\columnwidth]{ipa-cli} 
+    \caption{Autenticazione con Monokee SSO tramite FreeIPA da CLI}
+    \label{fig:ipa-cli}
+\end{figure}
 
-\subsection{Secure Shell}
-Secure Shell (\acrshort{ssh}) è un protocollo di rete crittografato utilizzato per la gestione sicura di dispositivi di rete e per l'accesso remoto a sistemi informatici. Il protocollo \acrshort{ssh} fornisce un canale di comunicazione sicuro tra due dispositivi, garantendo l'integrità, la riservatezza e l'autenticità delle informazioni trasmesse.
 
-L'autenticazione avviene attraverso l'uso di chiavi pubbliche e private: in questo metodo, un'entità che desidera accedere a un sistema remoto genera una coppia di chiavi, una pubblica e una privata; la chiave pubblica viene fornita al sistema remoto, mentre la chiave privata viene conservata dall'entità; quando l'entità si connette al sistema remoto, la chiave privata viene utilizzata per autenticare l'entità.
+\section{Problematiche riscontrate}
 
-Inoltre, \acrshort{ssh} utilizza la crittografia per proteggere i dati trasferiti tra i dispositivi. In particolare, il protocollo utilizza la crittografia a chiave simmetrica per proteggere i dati durante la trasmissione, e la crittografia a chiave pubblica per autenticare le parti coinvolte.
+Durante l'integrazione dell'\acrshort{sso} tramite FreeIPA, nonché già dal processo di configurazione dello stesso, ho riscontrato numerose problematiche.
 
-\subsection{Proxmox}
+In primis, a rendere il processo più faticoso del previsto, è stata la mancanza di una  documentazione esaustiva e di informazioni utili in rete in merito alla risoluzione degli errori, dovuta probabilmente alla userbase di FreeIPA, che, benché tale servizio sia lo standard in ambito \acrshort{iam}, è alquanto ridotta.
 
-Proxmox è una piattaforma di virtualizzazione open-source che combina la virtualizzazione basata su container (\acrshort{lxc}) e la virtualizzazione basata su macchine virtuali (\acrfull{kvm}) in un'unica soluzione. È progettato per consentire la creazione, la gestione e l'esecuzione di macchine virtuali e container su un unico sistema, fornendo un ambiente flessibile e scalabile per le infrastrutture IT.
+In secondo luogo, mi sono imbattuto errori di inconsistenza piuttosto limitanti tra i registri di FreeIPA e quelli di sistema, riscontrati anche da altri utenti in rete\cite{site:redhat-bugzilla} \cite{site:freeipa-issue} \cite{site:freeipa-users-1} \cite{site:freeipa-users-2} \cite{site:freeipa-users-3} \cite{site:centos-forums}, oltre che difetti di compatibilità della piattaforma con alcune versioni di \acrshort{centos} e \acrshort{rhel}.
 
-Una delle caratteristiche principali di Proxmox è la sua interfaccia di gestione Web, chiamata \acrfull{pve}, che fornisce un'interfaccia grafica intuitiva per la gestione delle risorse di virtualizzazione. \acrshort{lxc} consente agli amministratori di creare, configurare e monitorare le macchine virtuali e i container, nonché di gestire l'archiviazione, la rete e altre risorse di sistema.
+Infine, l'autenticazione di FreeIPA tramite Monokee \acrshort{sso} non riesce a sovrascrivere quella di UNIX quando si vuole raggiungere una macchina tramite \acrshort{ssh} su un utente Monokee già configurato sul server. Tuttavia, ho raggiunto il monte ore stabilito prima di poter arrivare ad una soluzione per questa problematica; l'attuale implementazione, dunque, comprende la possibilità di accedere al proprio ambiente Monokee tramite \acrshort{sso} da una certa macchina client unicamente se si è autenticati all'interno di essa con un utente locale di qualunque tipologia.
 
-Proxmox offre, inoltre, funzionalità avanzate come la migrazione live delle macchine virtuali, che consente di spostare una macchina virtuale in esecuzione da un nodo all'altro senza interruzioni di servizio. Ciò offre flessibilità nella gestione delle risorse e consente di bilanciare il carico di lavoro tra i nodi di virtualizzazione.
+\section{Documentazione}
 
-La piattaforma è anche integrata con la gestione dell'archiviazione e della rete, consentendo la creazione e la gestione di storage e reti virtuali all'interno dell'ambiente di virtualizzazione: questo semplifica la gestione delle risorse e offre una maggiore flessibilità nella configurazione dell'infrastruttura di rete e storage.
+\myAzienda{} ha richiesto la redazione di una guida che illustrasse il processo di configurazione del server FreeIPA e dei sistemi di Monokee per l'integrazione del \acrshort{sso} sulle macchine UNIX, per fornire una base documentativa per facilitare le future progressioni e sperimentazioni relative. Seguendo le indicazioni dell'azienda, ho utilizzato il formato Markdown, versionando il codice sul repository GitHub aziendale fornitomi dalla stessa\cite{site:docs}. La documentazione consta di un singolo file Markdown di 188 righe, completo di comandi, codice ed immagini esplicative.
+
+
+
+\section{Sviluppi futuri}
+A partire dai risultati che ho ottenuto durante l'attività di stage, gli sviluppi futuri possibili sono molteplici.
+
+Innanzitutto, comincerei con il risolvere il problema legati all'accesso alle macchine con il server di FreeIPA installato tramite \acrshort{ssh} su un utente di FreeIPA, e, dunque, per mezzo del \acrshrot{sso} di Monokee. L'\acrshort{sso}, difatti, viene bypassato e viene richiesta la password dell'utente, la quale, di fatto, non esiste perché non è utilizzata da FreeIPA sugli utenti da autenticare con Monokee. 
+
+Dunque, andrei a verificare le impostazioni attive nei file di configurazione di \acrshort{ssh}, come \texttt{/etc/ssh/sshd\_config}.
+\\ \\
+Risolto questo problema e avendo, quindi, una macchina a cui è possibile accedere tramite \acrshort{ssh} direttamente con un utente Monokee, il prossimo passo potrebbe essere quello di predisporre delle macchine server con le risorse dell'azienda e fornirne l'accesso 
+direttamente da Monokee, utilizzando un servizio come Apache Guacamole.
+
+In questo modo, un utente Monokee privilegiato potrebbe accedere a delle macchine server gestire accessi, privilegi ed altro, oppure, nel caso di un utente subordinato, accedere a delle macchine client, gestite da quella server.

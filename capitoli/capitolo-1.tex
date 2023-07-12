@@ -54,14 +54,14 @@ su diversi tipi di autenticazione, sia passwordless che tramite soluzioni di \ac
 
 % I preliminari. Di cosa si parla nella tesi? Che cos'è un sistema di autenticazione, quale ruolo ha in un sistema informatico e perché è importante?
 
-Generalmente, per poter utilizzare un sistema, sia esso fisico, come, ad esempio, un computer, o virtuale, come un servizio web, è necessario disporre di un'identità digitale che certifichi che l'utente abbia il permesso di utilizzare tale sistema. Per associare la propria identità digitale al dispositivo o servizio che si vuole utilizzare occorre effettuare un'autenticazione attraverso il sistema (o i sistemi) messi a disposizione dallo stesso. Il processo di autenticazione risulta, dunque, fondamentale e prioritario nel mondo dell'informatica. I sistemi basati su UNIX utilizzan un metodo di autenticazione relativamente semplice che utilizza la tecnologia \acrfull{pam}, memorizzando i dati degli utenti su dei file di testo locali. Esistono, però, anche metodi di autenticazione più complessi, come il \acrfull{sso}, che, per mezzo di diversi protocolli, consente ad un utente di autenticarsi a più servizi contemporaneamente utilizzando le stesse credenziali.
+Generalmente, per poter utilizzare un sistema, sia esso fisico, come, ad esempio, un computer, o virtuale, come un servizio web, è necessario disporre di un'identità digitale che certifichi che l'utente abbia il permesso di utilizzare tale sistema. Per associare la propria identità digitale al dispositivo o servizio che si vuole utilizzare occorre effettuare un'autenticazione attraverso il sistema (o i sistemi) messi a disposizione dallo stesso. Il processo di autenticazione risulta, dunque, fondamentale e prioritario nel mondo dell'informatica. I sistemi basati su UNIX utilizzano un metodo di autenticazione relativamente semplice che sfrutta la tecnologia \acrfull{pam}, memorizzando i dati degli utenti su dei file di testo locali. Esistono, però, anche metodi di autenticazione più complessi, come il \acrfull{sso}, che, per mezzo di diversi protocolli, consente ad un utente di autenticarsi a più servizi contemporaneamente utilizzando le stesse credenziali.
 \\ \\
-L'idea per il progetto dello stage nasce dall'esigenza di \myAzienda{} di estendere le funzionalità rese disponibili da Monokee in ambito di gestione degli accessi e delle identità digitali.
+Il progetto dello stage nasce dall'esigenza di \myAzienda{} di estendere le funzionalità rese disponibili da Monokee in ambito di gestione degli accessi e delle identità digitali.
 Monokee dispone di un \acrshort{sso} interno, che permette l'accesso canonico tramite nome utente e password, ma anche tramite credenziali biometriche, account Google e MetaMask. Queste funzionalità, tuttavia, sono disponibili unicamente attraverso l'interfaccia web, perciò il desiderio dell'azienda era quello di renderle disponibili anche dal terminale di macchine con sistemi operativi Linux-based, poiché da loro ampiamente utilizzate. 
 
 Il fine dell'attività di tirocinio era, dunque, quello di ricercare, ed, eventualmente, sviluppare, una soluzione che consentisse effettuare l'autenticazione al proprio account Monokee tramite il relativo \acrshort{sso} proprietario da riga di comando, in particolare, da macchine UNIX Debian e \acrfull{rhel}.
 \\ \\
-Il framework consigliato per il progetto da \myAzienda{} era FreeIPA, un gestore delle identità e degli accessi (\acrshort{iam})
+Il framework utilizzato per il progetto è FreeIPA, un gestore delle identità e degli accessi (\acrshort{iam})
 gratuito ed open-source che combina varie tecnologie, quali Linux, \acrfull{ldap}, \acrfull{mit} Kerberos, \acrfull{ntp}, \acrfull{dns} ed \acrfull{sssd}, e consta di un'interfaccia web e di strumenti di amministrazione tramite command-line\cite{site:freeipa-website}. 
 
 Tramite FreeIPA è possibile configurare un server in cui vengono memorizzate tutte le informazioni relative agli utenti, come le credenziali, i ruoli ed i rispettivi privilegi, consentendo, così, di amministrare facilmente le identità digitali condivise attraverso una stessa rete di dispositivi, sostituendo un più ampio sistema di autenticazione a quello già presente nativamente sui dispositivi in questione (in questo caso \acrshort{pam} per i dispositivi Linux). 
@@ -83,21 +83,19 @@ Grazie questa soluzione, ogni utente di Monokee ha la possibilità di accedere a
 
 Infine, ho proseguito con lo sviluppo cercando di migliorare ulteriormente la soluzione trovata provando ad estendere la possibilità di accedere ai dispositivi già configurati da qualunque altro dispositivo, utilizzando la tecnologia \acrfull{ssh}. Tuttavia, non sono riuscito a terminare l'implementazione prima del raggiungimento del monte ore totale a disposizione. 
 
-
+In conclusione, sono riuscito ad implementare con successo una soluzione per poter utilizzare l'\acrshort{sso} di Monokee da riga di comando rispettando le richieste dell'azienda e lasciando loro anche una traccia documentativa per agevolare eventuali sviluppi futuri.
 
 %**************************************************************
-% \section{Organizzazione del testo}
+\section{Struttura della tesi}
 
-% \begin{description}
-%     \item[{\hyperref[cap:processi-metodologie]{Il secondo capitolo}}] descrive ...
-    
-%     \item[{\hyperref[cap:descrizione-stage]{Il terzo capitolo}}] approfondisce ...
-    
-%     \item[{\hyperref[cap:analisi-requisiti]{Il quarto capitolo}}] approfondisce ...
+I successivi capitoli della tesi sono strutturati come segue:
 
-%     \item[{\hyperref[cap:progettazione-codifica]{Il quinto capitolo}}] approfondisce ...
+\begin{description}
     
-%     \item[{\hyperref[cap:verifica-validazione]{Il sesto capitolo}}] approfondisce ...
+    \item[{\hyperref[cap:studio-tecnologico]{Il secondo capitolo}}] illustra lo studio tecnologico effettuato spiegando nel dettaglio i concetti e gli strumenti impiegati;
+
+
+    \item[{\hyperref[cap:ricerca-sperimentazione]{Il terzo capitolo}}] descrive i processi di ricerca attuati, lo sviluppo delle soluzioni trovate e la stesura della relativa documentazione;
     
-%     \item[{\hyperref[cap:conclusioni]{Nel settimo capitolo}}] descrive ...
-% \end{description}
+    \item[{\hyperref[cap:conclusioni]{Il quarto capitolo}}] conclude, infine, la tesi riassumendo gli esiti del lavoro svolto e sviluppando le dovute conclusioni.
+\end{description}
