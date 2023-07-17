@@ -3,6 +3,8 @@
 \usetheme{Padova}
 \usepackage[english, italian]{babel}
 \usepackage{float}
+\newcommand{\code}[1]{\texttt{#1}}
+
 
 \title{Integrazione di Single Sign-On in Unix Pluggable Authentication Module (Unix PAM)}
 \subtitle{Dipartimento di Matematica ”Tullio Levi-Civita" \\ Università degli Studi di Padova \\ Laurea in Informatica}
@@ -26,7 +28,6 @@
 		\begin{figure}[H] 
 			\centering 
 			\includegraphics[width=0.4\columnwidth]{immagini/logo-athesys} 
-			\caption{Logo di Athesys Srl}
 			\label{fig:athesys}
 		\end{figure}
 		
@@ -43,7 +44,6 @@
 		\begin{figure}[H] 
 			\centering 
 			\includegraphics[width=0.4\columnwidth]{immagini/logo-monokee} 
-			\caption{Logo di Monokee Srl}
 			\label{fig:monokee}
 		\end{figure}
 
@@ -60,11 +60,21 @@
 			Ricercare e sviluppare una soluzione che consenta di effettuare l'accesso a Monokee utilizzando il relativo SSO da riga di comando di dispositivi Linux (CentOS e RHEL).
 		\end{block}
 	\end{frame}
-
+	
+	\begin{frame}{Roadmap}
+				
+		\begin{enumerate}
+			\item Studio tecnologico \vspace{.5em}
+			\item Ricerca soluzione (PAM/FreeIPA) \vspace{.5em}
+			\item Sviluppo PoC \vspace{.5em}
+		\end{enumerate}
+		
+	\end{frame}
+	
 	\section{Tecnologie utilizzate}
 	
 	\begin{frame}{Tecnologie utilizzate}
-				
+		
 		\begin{itemize}
 			\item FreeIPA \vspace{.5em}
 			\item LXC/Proxmox \vspace{.5em}
@@ -74,7 +84,6 @@
 		\begin{figure}[H] 
 			\centering 
 			\includegraphics[width=0.4\columnwidth]{immagini/logo-freeipa.png} 
-			\caption{Logo di FreeIPA}
 			\label{fig:freeipa}
 		\end{figure}
 	\end{frame}
@@ -85,7 +94,6 @@
 		\begin{figure}[H] 
 			\centering 
 			\includegraphics[width=0.6\columnwidth]{immagini/proxmox.png} 
-			\caption{Schermata VM Proxmox}
 			\label{fig:proxmox}
 		\end{figure}
 		
@@ -115,7 +123,6 @@
 			\begin{figure}[H] 
 				\centering 
 				\includegraphics[width=0.5\columnwidth]{immagini/oidc_logo.png} 
-				\caption{Logo OpenID}
 				\label{fig:oidc-setup}
 			\end{figure}
 		\end{itemize}
@@ -125,7 +132,6 @@
 	% 	\begin{figure}[H] 
 	% 		\centering 
 	% 		\includegraphics[width=\columnwidth]{immagini/oidc-flow.png} 
-	% 		\caption{Flusso autenticazione OIDC}
 	% 		\label{fig:oidc-flow}
 	% 	\end{figure}
 
@@ -135,7 +141,6 @@
 		\begin{figure}[H] 
 			\centering 
 			\includegraphics[width=\columnwidth]{immagini/monokee-oidc.png} 
-			\caption{Schermata setup OIDC Monokee}
 			\label{fig:oidc-setup}
 		\end{figure}
 		
@@ -146,22 +151,27 @@
 		\begin{figure}[H] 
 			\centering 
 			\includegraphics[width=\columnwidth]{immagini/appendici/ipa-user.png} 
-			\caption{Schermata setup utente FreeIPA}
 			\label{fig:ipa-setup-user}
 		\end{figure}
-		
-		
 	\end{frame}
 	
 	\begin{frame}{PoC CLI Monokee SSO}
-		\begin{figure}[H] 
-			\centering 
-			\includegraphics[width=\columnwidth]{immagini/ipa-cli.png} 
-			\caption{CLI PoC}
-			\label{fig:cli-sso}
-		\end{figure}
-		
-		
+		\textbf{\textit{Caso d'uso:} un utente registrato vuole operare su una macchina virtuale fornita da Monokee}
+		\vspace {.5em}
+		\begin{enumerate}
+			\item L'utente accede alla macchina virtuale;
+			\item L'utente inserisce i comandi per l'autenticazione;
+			\item L'utente segue il link fornito e si autentica con il metodo che preferisce;
+			\item L'utente ritorna al terminale e preme "Invio";
+			\item L'utente è correttamente autenticato e può operare sulla macchina.
+		\end{enumerate}
+	\end{frame}
+
+	\begin{frame}{PoC CLI Monokee SSO}
+		\code{[iarena@ipa]\$ kinit -n -c ./fast.ccache} \\
+		\code{[iarena@ipa]\$ kinit -T ./fast.ccache monokee1} \\
+		\code{Authenticate at https://test.monokee.com/6627a356/device?user\_code=XYhv-HksZ and press ENTER.:} \\
+		\code{[iarena@ipa]\$ klist}
 	\end{frame}
 	\begin{frame}{Stato dello sviluppo}
 				
